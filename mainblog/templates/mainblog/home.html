@@ -4,14 +4,14 @@
 <aside class="sidebar sidebar_left">
     <div class="sidebar__borsch-price sidebar-left-container">
         <div class="sidebar__header sidebar__header_left">
-            <h3>Сколько стоит борщ?</h3>
+            <h3>How much is the borsch?</h3>
         </div>
         <div class="sidebar__borsch-card">
             <div class="sidebar__borsch-front">
                 <div class="sidebar__borsch-front-item">
                     <div class="sidebar__borsch-front-text-container">
                         <div class="sidebar__borsch-front-text">
-                            <p>сегодня литр борща обойдется нам приблизительно в </p>
+                            <p>it's ours for: </p>
                             <div>
                                 <span>
                                     <script>
@@ -52,15 +52,29 @@
     </div>
     <div class="sidebar__graph sidebar-left-container">
         <div class="sidebar__header sidebar__header_left">
-            <h3>Индекс борща</h3>
+            <h3>Borsch index</h3>
         </div>
-        <div class="sidebar__image">
-            <img src={% static "mainblog/pictures/dia.svg" %} alt="dia">
+        <div class="sidebar__graph-card">
+            <div class="sidebar__graph-card-front">
+                <div class="sidebar__image">
+                    <img src={% static "mainblog/pictures/dia.svg" %} alt="dia">
+                </div>
+            </div>
+            <div class="sidebar__graph-card-back">
+                <div class="sidebar__graph-back-text-container">
+                    <div class="div">
+                        E=mc^2
+                    </div>
+                </div>
+                <div class="sidebar__image">
+                    <img src={% static "mainblog/pictures/dia.svg" %} alt="dia">
+                </div>
+            </div>
         </div>
     </div>
     <div class="sidebar__follow sidebar-left-container">
         <div class="sidebar__header sidebar__header_left">
-            <h3>Давайте будем на связи!</h3>
+            <h3>Always in touch!</h3>
         </div>
         <div class="sidebar__social">
             <a href="#" class="sidebar__link"><img src={% static "mainblog/pictures/icons/social/google-icon.svg" %} alt="google"></a>
@@ -75,7 +89,7 @@
 <aside class="sidebar sidebar_right">
     <div class="sidebar__items">
         <div class="sidebar__header sidebar__header_right">
-            <h3>Пара интересных случайных статей:</h3>
+            <h3>Couple of interesting random posts:</h3>
         </div>
         <div class="sidebar__random-post-card">
             <div class="sidebar__random-post-front">
@@ -113,7 +127,7 @@
 </aside>
 <section class="content">
     <section class="content__info">
-        <h2>Обо мне - Владиусе ЭкоБорщиусе! И о моём блоге</h2>
+        <h2>About me - EcoBorschius! And about my blog also</h2>
         <p>{% lorem 66 w %}</p>
         <br>
         <p>{% lorem 44 w %}</p>
@@ -122,7 +136,7 @@
     </section>
     <section class="content__articles articles">
         <div id="articles"></div>
-        <h2>Мои недавние статьи</h2>
+        <h2>My recent posts</h2>
         <div class="articles__last-article">
             {% for post in articles %}
                 {% if post == last_post %}
@@ -138,7 +152,7 @@
                         {% endif %}
                         {% if post.author %}
                         <div class="articles__last-author">
-                            <a href="{% url 'user_articles' post.author %}">{{ post.author }}</a> &nbsp Опубликовано: {{ post.date|date:"d E Y" }}
+                            <a href="{% url 'user_articles' post.author %}">{{ post.author }}</a> &nbsp Published: {{ post.date|date:"d E Y" }}
                         </div>
                         {% endif %}
                         <a href="{% url 'article_detail' post.id %}" class="articles__name">{{ post.title }}</a>
@@ -167,7 +181,7 @@
             {% endfor %}
         </div>
         <div class="articles__button">
-            <a href="#" class="articles__all-articles">Перейти ко всем статьям</a>
+            <a href="#" class="articles__all-articles">All my posts</a>
         </div>
     </section>
 </section>
