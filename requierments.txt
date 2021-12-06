@@ -1,0 +1,7 @@
+django
+django-ckeditor
+easy-thumbnails
+django-filer
+django-summernote
+django-mathfilters
+django-ckeditor-filebrowser-filer

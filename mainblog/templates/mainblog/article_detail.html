@@ -1,0 +1,245 @@
+{% extends 'mainblog/base.html' %}
+
+{% block menu %}
+    <div class="outer_menu_container">
+        <div class="inner_menu_container">
+            {% if not user.is_authenticated %}
+                <div class="menu">
+                    <span><a class="menu_button" href="{% url 'home' %}">Главная</a></span>
+                    <span><a class="menu_button" href="{% url 'all_products' %}">Индекс борща</a></span>
+                    <span><a class="menu_button" href="{% url 'registration' %}">Регистрация</a></span>
+                    <span><a class="menu_button" href="{% url 'user' %}">Вход</a></span>
+                </div>
+            {% else %}
+                {% if user.username == 'admin' or user.username == 'prothean' %}
+                    <div class="menu">
+                        <span><a class="menu_button" href="{% url 'home' %}">Главная</a></span>
+                        <span><a class="menu_button" href="{% url 'all_products' %}">Индекс борща</a></span>
+                        <span><a class="menu_button" href="{% url 'profile' %}">Профиль</a></span>
+                        <span><a class="menu_button" href="{% url 'article_add' %}">Написать статью</a></span>
+                        <span><a class="menu_button" href="{% url 'user_articles' user.username %}">Мои статьи</a></span>
+                        <span><a class="menu_button" href="{% url 'exit' %}">Выход</a>{# (<b>{{ user.username }}</b>) #}</span>
+                    </div>
+                {% else %}
+                    <div class="menu">
+                        <span><a class="menu_button" href="{% url 'home' %}">Главная</a></span>
+                        <span><a class="menu_button" href="{% url 'all_products' %}">Индекс борща</a></span>
+                        <span><a class="menu_button" href="{% url 'profile' %}">Профиль</a></span>
+                        <span><a class="menu_button" href="{% url 'exit' %}">Выход</a> (<b>{{ user.username }}</b>)</span>
+                    </div>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="detail_post">
+        <div class="detail_post_title"><h1>{{ object.title }}</h1></div>
+        {% if object.img %}
+            {% if object.img == default_image %}
+                <span></span>
+            {% else %}
+                <img class="detail_post_image" src="{{ object.img.url }}">
+            {% endif %}
+        {% else %}
+            <p></p>
+        {% endif %}
+        <div class="detail_post_text">
+            <p>{{ object.text|safe }}</p>
+        </div>
+        <div class="author_control_post">
+            <div class="post_info">
+                <div class="post_author_image">
+                    <img src="{{ object.author.profile.img.url }}" alt="{{ object.author }}" class = "user_images">
+                </div>
+                <div class="post_meta_info">
+                    {% if object.author %}
+                    <span>Автор: <a class="lnk_author" href="{% url 'user_articles' object.author %}">{{ object.author }}</a> &nbsp Опубликовано: {{ object.date|date:"d E Y" }}</span>
+                    {% else %}
+                    <p>Автор: Unknown</p>
+                    <p>Опубликовано: {{ object.date|date:"d E Y" }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            {% if object.author == user %}
+                <div class="author_control_post_buttons">
+                    <a class="edit_button" href="{% url 'article_update' object.id %}" title="Редактировать">Редактировать</a>
+                    <a class="delete_button" href="{% url 'article_delete' object.id %}" title="Удалить">Удалить</a>
+                    <p></p>
+                </div>
+            {% endif %}
+        </div>
+
+    </div>
+
+{% if messages %}
+    {% for message in messages %}
+        <a href="#last_comment"><div class="message">{{ message }}</div></a>
+    {% endfor %}
+{% endif %}
+
+    <div class="comments_block">
+        {% if user.is_authenticated %}
+            <h3>Раздел комментариев</h3>
+            <div class="bottom-border"></div>
+            <p>Всего комментариев к статье: <b>{{ get_article.comments_articles.all.count }}</b></p>
+            <div class="bottom-border"></div>
+            <p>Добавить комментарий</p>
+            <div>
+                <form class="comment_form" action="" method="POST">
+                    {% csrf_token %}
+                    <div class="comment_field">
+                        <span class="comment_field">{{ form.text|safe }}</span>
+                    </div>
+    <!--                {{ form.as_p }}-->
+                    <input class="comment_publish" type="submit" value="Опубликовать комментарий">
+                </form>
+            </div>
+
+            {% for comment in get_article.comments_articles.all %}
+                <div class="comment_box">
+                    <li>
+                        <div class="comment_meta_info">
+                            <p><b>{{ comment.author }}</b> {{ comment.date }}: </p>
+                        </div>
+                        {% if comment.active == True %}
+                        <span class="active_true">{{ comment.text }}</span> <br>
+                        {% else %}
+                        <span class="active_false">{{ comment.text }}</span>
+                        {% endif %}
+
+                        <!--                    <p>{{ comment.active }}</p>-->
+                        {% if comment.article.author == request.user or user.username == 'admin' %}
+                            {% if comment.active == False %}
+                                <div class="delcomm_med">
+                                    <span class="comment_control_text">Комментарий ожидает модерации &nbsp<div class="question_image"></div> </span>
+                                </div>
+                                <a class="approve_moderated_comment_button" title="Опубликовать" data-url="{% url 'update_comment_status' comment.id 'public' %}" href="#">Разрешить</a>
+                                <a class="reject_moderated_comment_button" title="Удалить" data-url="{% url 'update_comment_status' comment.id 'delete' %}" href="#">Удалить</a> </p>
+                            {% else %}
+                                <div class="comment_control">
+                                    <span class="comment_control_text">Комментарий опубликован &nbsp<div class="approve_image"></div> </span>&nbsp&nbsp&nbsp&nbsp<a class="reject_comment_button" title="Удалить" data-url="{% url 'update_comment_status' comment.id 'delete' %}" href="#">Удалить</a> </p>
+                                </div>
+                            {% endif %}
+                        {% else %}
+                            {% if comment.active == False %}
+                                <div class="delcomm_med">
+                                    <span class="comment_control_text">Комментарий ожидает модерации &nbsp<div class="question_image"></div> </span>
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                    </li>
+                </div>
+            {% endfor %}
+        {% else %}
+        <br>
+            <p><b>Раздел комментариев</b> (для отправки комментария <a class="lnk" href="{% url 'user' %}" target="_blank"><b>войдите в систему</b></a> или <a class="lnk" href="{% url 'registration' %}" target="_blank"><b>зарегистрируйтесь</b></a>)</p>
+            <div class="bottom-border"></div>
+        <p>Всего комментариев: <b>{{ get_article.comments_articles.all.count }}</b></p>
+            <div class="bottom-border"></div>
+            {% for comment in comments_articles %}
+                <div class="comment_box">
+                    <li>
+                        <div class="comment_meta_info">
+                            <p><b>{{ comment.author }}</b> {{ comment.date }}: </p>
+                        </div>
+                        <div class="comment_text">
+                            {{ comment.text }}
+                        </div>
+                    </li>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+{% endblock %}
+
+<div>
+{% block js %}
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+    $('body').on('click', '.approve_moderated_comment_button', function(event){
+        event.preventDefault();
+        if (confirm('Вы уверены')) {
+            var url = $(this).attr('data-url')
+            var tag_li = $(this).parent()
+            console.log(url)
+
+            $.ajax({
+                url:url,
+                type: 'GET',
+                success: function (response) {
+                    tag_li.html(response)
+                    console.log(response)
+                }
+            })
+        }
+
+    })
+        $('body').on('click', '.reject_moderated_comment_button', function(event){
+        event.preventDefault();
+        if (confirm('Вы уверены')) {
+            var url = $(this).attr('data-url')
+            var tag_li = $(this).parent()
+            console.log(url)
+
+            $.ajax({
+                url:url,
+                type: 'GET',
+                success: function (response) {
+                    tag_li.html(response)
+                    console.log(response)
+                }
+            })
+        }
+
+    })
+</script>
+
+    <script>
+        $('body').on('click', '.approve_comment_button', function(event){
+            event.preventDefault();
+            if (confirm('Вы уверены')) {
+                var url = $(this).attr('data-url')
+                var tag_li = $(this).parent()
+                console.log(url)
+
+                $.ajax({
+                    url:url,
+                    type: 'GET',
+                    success: function (response) {
+                        tag_li.html(response)
+                        console.log(response)
+                    }
+                })
+            }
+
+        })
+        $('body').on('click', '.reject_comment_button', function(event){
+            event.preventDefault();
+            if (confirm('Вы уверены')) {
+                var url = $(this).attr('data-url')
+                var tag_li = $(this).parent()
+                console.log(url)
+
+                $.ajax({
+                    url:url,
+                    type: 'GET',
+                    success: function (response) {
+                        tag_li.html(response)
+                        console.log(response)
+                    }
+                })
+            }
+
+        })
+    </script>
+
+{% endblock %}
+</div>

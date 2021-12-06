@@ -1,0 +1,323 @@
+#heading {
+    position: absolute;
+    margin-top: -80px;
+}
+
+@font-face {
+    font-family: 'Gilroy-Regular';
+    src: local('Gilroy-Regular'), url('./fonts/gilroy-regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+html, body {
+    font-family: Gilroy-Regular;
+    background: #f0f0f0;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    bottom: 0;
+}
+
+header {
+    position: fixed;
+    top: 0px;
+    left: 0;
+    width: 100%;
+}
+
+footer {
+    bottom: 0;
+}
+
+.body {
+    margin-top: 140px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.post {
+    box-sizing: border-box;
+    max-width: 1219px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: justify;
+    border-bottom: solid 0.3px darkgray;
+    background: #ffffff;
+    /*box-shadow: 1px 1px 1px 1px darkgrey;*/
+}
+
+.header_main_container {
+    border-bottom: solid 0.3px darkgray;
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+    box-sizing: border-box;
+    font-size: 14pt;
+}
+
+.header_content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    z-index: 101;
+    width: 100%;
+}
+
+.logo {
+    padding-left: 40px;
+    color: #006064;
+    background: #34C6CC;
+    /*background: url("./background/DSC_0252_top.JPG");*/
+    background-size: cover;
+    background-position: center center;
+    width: 100%;
+    height: 80px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.outer_menu_container {
+    background: #FFB240;
+    font-size: 14pt;
+    list-style: none;
+    display: inline-flex;
+    justify-content: space-between;
+}
+
+.inner_menu_container {
+    margin: auto;
+    width: 1219px;
+    background: #FFB240;
+    font-size: 14pt;
+    list-style: none;
+    display: inline-flex;
+    justify-content: space-between;
+}
+
+.menu {
+    background: #FFB240;
+    font-size: 14pt;
+    list-style: none;
+    display: inline-flex;
+    margin-left: -38px;
+}
+
+.lnk {
+    color: inherit;
+    text-decoration: none;
+    transition: 0.15s;
+}
+
+.lnk:hover {
+    color: lightslategrey;
+}
+
+.lnk_author {
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.15s;
+}
+
+.lnk_author:hover {
+    color: lightslategrey;
+}
+
+.readmore {
+    background-color: initial;
+    border: 1px solid #75aeca;
+    border-radius: 3px;
+    color: #548eaa;
+    cursor: pointer;
+    display: inline-block;
+    font-size: .8125rem;
+    height: 36px;
+    line-height: 2.25rem;
+    margin-top: 18px;
+    padding: 0 13px;
+    text-decoration: none;
+    transition: 0.15s;
+}
+
+.readmore:hover {
+    color: black;
+    border: 1px solid lightslategrey;
+    background: lightslategrey;
+}
+
+
+.footer_main_container {
+    border-top: solid 2px #e8e8e8;
+    background: #FF7140;
+    /*background: url("./background/DSC_0252_bottom.JPG");*/
+    background-size: cover;
+    background-position: center center;
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+    box-sizing: border-box;
+    font-size: 14pt;
+}
+
+.user_images {
+    width: 64px;
+    height: 64px;
+}
+
+.delcomm_bad {
+    border: solid 1px dimgray;
+    background: red;
+}
+
+.delcomm_good {
+    border: solid 1px dimgray;
+    background: greenyellow;
+}
+
+.delcomm_med {
+    border: solid 1px dimgray;
+    background: yellowgreen;
+}
+
+.pagination {
+    background: #FF7140;
+    border: 1px solid #A62A00;
+    border-radius: 3px;
+    color: #ffffff;
+    cursor: pointer;
+    display: inline-block;
+    font-size: .8125rem;
+    height: 36px;
+    line-height: 2.25rem;
+    margin-top: 18px;
+    padding: 0 13px;
+    text-decoration: none;
+    transition: 0.15s;
+}
+
+.pagination:hover {
+    color: #ffffff;
+    border: 1px solid #A62A00;
+    background: #A62A00;
+}
+
+.paginated {
+    background: #A62A00;
+    border: 1px solid #A62A00;
+    border-radius: 3px;
+    color: #ffffff;
+    cursor: pointer;
+    display: inline-block;
+    font-size: .8125rem;
+    height: 42px;
+    width: 42px;
+    line-height: 2.25rem;
+    margin-top: 18px;
+    padding: 0 13px;
+    text-decoration: none;
+    transition: 0.15s;
+}
+
+.approve {
+    border: 1px solid darkseagreen;
+    border-radius: 3px;
+    color: seagreen;
+    cursor: pointer;
+    display: inline-block;
+    font-size: .8125rem;
+    height: 36px;
+    line-height: 2.25rem;
+    margin-top: 10px;
+    padding: 0 13px;
+    text-decoration: none;
+    transition: 0.15s;
+}
+
+.approve:hover {
+    color: black;
+    border: 1px solid lightslategrey;
+    background: yellowgreen;
+}
+
+.reject {
+    font-weight: bold;
+    border: 1px solid orange;
+    border-radius: 3px;
+    color: orange;
+    cursor: pointer;
+    display: inline-block;
+    font-size: .8125rem;
+    height: 36px;
+    line-height: 2.25rem;
+    margin-top: 10px;
+    padding: 0 13px;
+    text-decoration: none;
+    transition: 0.15s;
+}
+
+.reject:hover {
+    font-weight: bold;
+    color: white;
+    border: 1px solid darkred;
+    background: darkred;
+}
+
+.approve_comment {
+    border: 1px solid darkseagreen;
+    border-radius: 3px;
+    color: seagreen;
+    cursor: pointer;
+    display: inline-block;
+    font-size: .8125rem;
+    height: 36px;
+    line-height: 2.25rem;
+    margin-top: 10px;
+    padding: 0 13px;
+    text-decoration: none;
+    transition: 0.15s;
+}
+
+.approve_comment:hover {
+    color: black;
+    border: 1px solid lightslategrey;
+    background: yellowgreen;
+}
+
+.reject_comment {
+    font-weight: bold;
+    border: 1px solid orange;
+    border-radius: 3px;
+    color: orange;
+    cursor: pointer;
+    display: inline-block;
+    font-size: .8125rem;
+    height: 36px;
+    line-height: 2.25rem;
+    margin-top: 10px;
+    padding: 0 13px;
+    text-decoration: none;
+    transition: 0.15s;
+}
+
+.reject_comment:hover {
+    font-weight: bold;
+    color: white;
+    border: 1px solid darkred;
+    background: darkred;
+}
+
+
+.nav_pages {
+    align-content: space-between;
+    display: flex;
+    height: 70px;
+    margin-bottom: 10px;
+}
+
+.pages {
+    margin: auto;
+}

@@ -1,0 +1,11 @@
+    {% if status_comment %}
+    <div>
+        {{ status_comment }}
+    </div>
+    {% endif %}
+    <p class="post">
+    <p>Пользователь {{ comment.author }} прокомментировал {{ comment.date }}: </p>
+    <p>{{ comment.text }}</p>
+    <p>{{ comment.active }} -
+    <a class="update_status" data-url="{% url 'update_comment_status' comment.id 'public' %}" href="#">Опубликовать</a> /
+    <a class="update_status" data-url="{% url 'update_comment_status' comment.id 'delete' %}" href="#">Удалить</a> </p>

@@ -1,0 +1,18 @@
+{% extends 'mainblog/base.html' %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block content %}
+
+     <h3>{{ title }}</h3>
+
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Добавить комментарий">
+        </form>
+
+
+{% endblock %}

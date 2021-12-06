@@ -1,0 +1,135 @@
+{% extends 'mainblog/base.html' %}
+
+{% block menu %}
+    <div class="outer_menu_container">
+        <div class="inner_menu_container">
+            {% if not user.is_authenticated %}
+                <div class="menu">
+                    <span><a class="menu_button" href="{% url 'home' %}">Главная</a></span>
+                    <span><a id="profile_link" class="menu_button" href="{% url 'all_products' %}">Индекс борща</a></span>
+                    <span><a class="menu_button" href="{% url 'registration' %}">Регистрация</a></span>
+                    <span><a class="menu_button" href="{% url 'user' %}">Вход</a></span>
+                </div>
+            {% else %}
+                {% if user.username == 'admin' or user.username == 'prothean' %}
+                    <div class="menu">
+                        <span><a class="menu_button" href="{% url 'home' %}">Главная</a></span>
+                        <span><a id="profile_link" class="menu_button" href="{% url 'all_products' %}">Индекс борща</a></span>
+                        <span><a class="menu_button" href="{% url 'profile' %}">Профиль</a></span>
+                        <span><a class="menu_button" href="{% url 'article_add' %}">Написать статью</a></span>
+                        <span><a class="menu_button" href="{% url 'user_articles' user.username %}">Мои статьи</a></span>
+                        <span><a class="menu_button" href="{% url 'exit' %}">Выход</a>{# (<b>{{ user.username }}</b>) #}</span>
+                    </div>
+                {% else %}
+                    <div class="menu">
+                        <span><a id="profile_link" class="menu_button" href="{% url 'home' %}">Главная</a></span>
+                        <span><a class="menu_button" href="{% url 'all_products' %}">Индекс борща</a></span>
+                        <span><a class="menu_button" href="{% url 'profile' %}">Профиль</a></span>
+                        <span><a class="menu_button" href="{% url 'exit' %}">Выход</a> (<b>{{ user.username }}</b>)</span>
+                    </div>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block content %}
+    <div class="contacts">
+        <h3>Индекс борща</h3>
+        <div class="canva">
+            здесь возможен график
+        </div>
+        {% if not user.is_authenticated %}
+            {% if products.count > 0 %}
+                    <table class="borsch_products">
+                        <thead>
+                            <tr>
+                                <th>IMG</th>
+                                <th>Product_name</th>
+                                <th>Product_price  р/кг (р/уп)</th>
+                            </tr>
+                        </thead>
+                        {% for product in products %}
+                            <tbody>
+                                <tr>
+                                    <td>IMG</td>
+                                    <td>{{ product.name }}</td>
+                                    <td>{{ product.price }}</td>
+                                </tr>
+                            </tbody>
+                        {% endfor %}
+                    </table>
+                {% endif %}
+        {% else %}
+            {% if user.username == 'admin' or user.username == 'prothean' %}
+                <span><a class="readmore" href="{% url 'create_product' %}">Добавить продукт</a></span>
+                {% if products.count > 0 %}
+                    <div class="product_table">
+                        <div class="product_table_head">
+                            <span class="cell">IMG</span>
+                            <span class="cell">Product_name</span>
+                            <span class="cell">Product_price р/кг (р/уп)</span>
+                            <span class="cell_eddel">Edit</span>
+                            <span class="cell_eddel">Delete</span>
+                        </div>
+                    {% for product in products %}
+                        <div class="product_table_row">
+                            <span class="cell">IMG</span>
+                            <span class="cell">{{ product.name }}</span>
+                            <span class="cell">{{ product.price }}</span>
+                            <span class="cell_eddel"><a class="readmore" href="{% url 'product_update' product.id %}">Изменить данные</a></span>
+                            <span class="cell_eddel"><a class="readmore" href="{% url 'product_delete' product.id %}">Удалить продукт</a></span>
+                        </div>
+                    {% endfor %}
+                    </div>
+
+                    <table class="borsch_products">
+                        <thead>
+                            <tr>
+                                <th>IMG</th>
+                                <th>Product_name</th>
+                                <th>Product_price  р/кг (р/уп)</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        {% for product in products %}
+                            <tbody>
+                                <tr>
+                                    <td>IMG</td>
+                                    <td>{{ product.name }}</td>
+                                    <td>{{ product.price }}</td>
+                                    <td><a class="readmore" href="{% url 'product_update' product.id %}">Изменить данные</a></td>
+                                    <td><a class="readmore" href="{% url 'product_delete' product.id %}">Удалить продукт</a></td>
+                                </tr>
+                            </tbody>
+                        {% endfor %}
+                    </table>
+                {% endif %}
+            {% else %}
+                <table class="borsch_products">
+                        <thead>
+                            <tr>
+                                <th>IMG</th>
+                                <th>Product_name</th>
+                                <th>Product_price  р/кг (р/уп)</th>
+                            </tr>
+                        </thead>
+                        {% for product in products %}
+                            <tbody>
+                                <tr>
+                                    <td>IMG</td>
+                                    <td>{{ product.name }}</td>
+                                    <td>{{ product.price }}</td>
+                                </tr>
+                            </tbody>
+                        {% endfor %}
+                    </table>
+            {% endif %}
+        {% endif %}
+    </div>
+{% endblock %}

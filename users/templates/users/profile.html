@@ -1,0 +1,93 @@
+{% extends 'mainblog/base.html' %}
+
+{% block menu %}
+    <div class="outer_menu_container">
+        <div class="inner_menu_container">
+            {% if not user.is_authenticated %}
+                <div class="menu">
+                    <span><a class="menu_button" href="{% url 'home' %}">Главная</a></span>
+                    <span><a class="menu_button" href="{% url 'all_products' %}">Индекс борща</a></span>
+                    <span><a class="menu_button" href="{% url 'registration' %}">Регистрация&nbsp&nbsp</a></span>
+                    <span><a class="menu_button" href="{% url 'user' %}">Вход</a></span>
+                </div>
+            {% else %}
+                {% if user.username == 'admin' or user.username == 'prothean' %}
+                    <div class="menu">
+                        <span><a class="menu_button" href="{% url 'home' %}">Главная</a></span>
+                        <span><a class="menu_button" href="{% url 'all_products' %}">Индекс борща</a></span>
+                        <span><a id="profile_link" class="menu_button" href="{% url 'profile' %}">Профиль</a></span>
+                        <span><a class="menu_button" href="{% url 'article_add' %}">Написать статью</a></span>
+                        <span><a class="menu_button" href="{% url 'user_articles' user.username %}">Мои статьи</a></span>
+                        <span><a class="menu_button" href="{% url 'exit' %}">Выход</a>{# (<b>{{ user.username }}</b>) #}</span>
+                    </div>
+                {% else %}
+                    <div class="menu">
+                        <span><a class="menu_button" href="{% url 'home' %}">Главная</a></span>
+                        <span><a class="menu_button" href="{% url 'all_products' %}">Индекс борща</a></span>
+                        <span><a class="menu_button" href="{% url 'profile' %}">Профиль&nbsp&nbsp</a></span>
+                        <span><a class="menu_button" href="{% url 'exit' %}">Выход</a> (<b>{{ user.username }}</b>)</span>
+                    </div>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block title %}
+    Профиль пользователя
+{% endblock %}
+
+<body id="profile">
+    {% block content %}
+        <div class="user_profile">
+    <!--        <h3>Карточка пользователя</h3>-->
+
+            <form class="update_user_form" method="post" enctype="multipart/form-data">
+                <div class="user_card">
+                    <div class="user_photo_block">
+                        <img class="user_profile_photo" src="{{ user.profile.img.url }}">
+                        <a class="lnk_author" href="{% url 'user_articles' user.username %}" title="Перейти к статьям">{{ user.username }}</a>
+                        {% csrf_token %}
+                        <div class="helptext">
+                            <span>Загрузить фото:</span>
+                        </div>
+                        {{ form.img|safe }}
+                        <input type="file" name="img" accept="image/*" id="id_img">
+                    </div>
+
+                    <div class="user_name_attrs">
+                        <span>Имя:</span>
+                        {{ updateForm.first_name|safe }}
+                        <span>Фамилия:</span>
+                        {{ updateForm.last_name|safe }}
+                    </div>
+
+                    <div class="user_meta_attrs">
+                        <span>E-mail:</span>
+                        {{ updateForm.email|safe }}
+                        <span>Логин:</span>
+                        {{ updateForm.username|safe }}
+                    </div>
+                </div>
+                <div class="update_profile_info_button">
+                    <button type="submit">Обновить информацию</button>
+                </div>
+            </form>
+
+            <div class="update_user_password_block">
+                <div class="helptext">
+                    <span>При необходимости вы можете изменить свой пароль для входа в учётную запись. Для перехода к форме смены пароля, кликните по кнопке "Сменить пароль"</span>
+                </div>
+                <a class="readmore" href="{% url 'change_password' %}">Сменить пароль</a>
+
+                <br>
+                <br>
+                <br>
+                <div class="helptext">
+                    <span>Пользователь был зарегистрирован {{ user.date_joined|date:"d E Y" }}</span>
+                </div>
+            </div>
+        </div>
+
+    {% endblock %}
+</body>
