@@ -124,6 +124,17 @@ h2 {
 .content__articles h2 {
     text-align: right;
 }
+.content__author-articles h2:before {
+    content: url("");
+    display: inline-block;
+    width: 40px;
+    height: 2px;
+    position: relative;
+    bottom: -15px;
+    right: 5px;
+    border-radius: 10%;
+    background: url("./pictures/icons/horisontal-line.svg") no-repeat center;
+}
 .content__articles h2:after {
     content: url("");
     display: inline-block;
@@ -160,6 +171,9 @@ h3 {
     position: relative;
     min-height: 75vh;
     overflow: hidden;
+}
+.fullscreen_small {
+    min-height: 10vh;;
 }
 .fullscreen__body {
     position: relative;
@@ -198,7 +212,7 @@ h3 {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    min-height: 75vh;
+    min-height: inherit;
     padding-top: 20px;
     position: relative;
     z-index: 2;
@@ -282,14 +296,18 @@ h3 {
 .header__big-text {
     margin: 0px auto;
     color: #fafafa;
-}
-.header__big-text > p {
     letter-spacing: 4px;
     text-align: center;
     line-height: 150%;
     font-size: 40px;
     font-family: mandys-scetch;
 }
+.header__big-text_small {
+    font-size: 30px;
+    line-height: 115%;
+    letter-spacing: 3px;
+}
+
 .header__blog {
     align-self: center;
     padding: 10px 10px 25px 10px;
@@ -547,7 +565,6 @@ h3 {
 }
 
 
-
 .sidebar__follow {
 }
 .sidebar__follow img {
@@ -557,6 +574,10 @@ h3 {
     display: flex;
     flex-wrap: wrap;
     padding: 10px 5px;
+}
+.sidebar__social p {
+    color: #444444;
+    padding: 20px 10px 15px 10px;
 }
 .sidebar__link {
     margin: 0px auto;
@@ -679,12 +700,6 @@ h3 {
     object-fit: cover;
 }
 
-.sidebar__name {
-}
-.sidebar__description {
-}
-.sidebar__button {
-}
 
 
 .content {

@@ -1,36 +1,51 @@
 {% extends 'mainblog/base.html' %}
+{% load static %}
 
-{% block menu %}
-    <div class="outer_menu_container">
-        <div class="inner_menu_container">
-            {% if not user.is_authenticated %}
-                <div class="menu">
-                    <span><a class="menu_button" href="{% url 'home' %}">Главная</a></span>
-                    <span><a class="menu_button" href="{% url 'all_products' %}">Индекс борща</a></span>
-                    <span><a class="menu_button" href="{% url 'registration' %}">Регистрация</a></span>
-                    <span><a class="menu_button" href="{% url 'user' %}">Вход</a></span>
+{% block header %}
+    <header class="header">
+                <div class="fullscreen fullscreen_small">
+                    <div class="fullscreen__body">
+                        <div class="header__container container header__container_small">
+                            <div class="header__row">
+                                <div class="header__column">
+                                    <div class="header__item">
+                                        <div class="header__logo">
+                                            <a href="{% url 'home' %}" class="header__logo-item link logo-item">
+                                                <p class="logo-item__text">eco</p>
+                                                <div class="logo-item__picture">
+                                                    <img src={% static "mainblog/pictures/logo/izba.jpg" %} alt="logo-izba">
+                                                </div>
+                                                <p class="logo-item__text">borsch</p>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="header__column">
+                                    <div class="header__item">
+                                        <ul class="header__menu">
+                                            <li><a href="{% url 'user_articles' 'prothean' %}" class="header__link link">posts</a></li>
+                                            <li><a href="{% url 'all_products' %}" class="header__link link">borsch index</a></li>
+                                            <li><a href="{% url 'registration' %}" class="header__link link">registration</a></li>
+                                            <li><a href="{% url 'user' %}" class="header__link link">log in</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="header__row">
+                                <div class="header__big-text header__big-text_small">
+                                    <p>the most divinest borschy</p>
+                                    <p>by local economist-man...</p>
+                                </div>
+                            </div>
+                            <div class="header__blog">
+                            </div>
+                        </div>
+                    </div>
+                    <picture class="fullscreen__image">
+                        <img src={% static "mainblog/pictures/background/header_background.jpg" %} alt="background">
+                    </picture>
                 </div>
-            {% else %}
-                {% if user.username == 'admin' or user.username == 'prothean' %}
-                    <div class="menu">
-                        <span><a class="menu_button" href="{% url 'home' %}">Главная</a></span>
-                        <span><a class="menu_button" href="{% url 'all_products' %}">Индекс борща</a></span>
-                        <span><a class="menu_button" href="{% url 'profile' %}">Профиль</a></span>
-                        <span><a class="menu_button" href="{% url 'article_add' %}">Написать статью</a></span>
-                        <span><a id="profile_link" class="menu_button" href="{% url 'user_articles' user.username %}">Мои статьи</a></span>
-                        <span><a class="menu_button" href="{% url 'exit' %}">Выход</a>{# (<b>{{ user.username }}</b>) #}</span>
-                    </div>
-                {% else %}
-                    <div class="menu">
-                        <span><a class="menu_button" href="{% url 'home' %}">Главная</a></span>
-                        <span><a class="menu_button" href="{% url 'all_products' %}">Индекс борща</a></span>
-                        <span><a class="menu_button" href="{% url 'profile' %}">Профиль</a></span>
-                        <span><a class="menu_button" href="{% url 'exit' %}">Выход</a> (<b>{{ user.username }}</b>)</span>
-                    </div>
-                {% endif %}
-            {% endif %}
-        </div>
-    </div>
+</header>
 {% endblock %}
 
 {% block title %}
@@ -38,65 +53,69 @@
 {% endblock %}
 
 {% block content %}
-<!--    <div class="all_articles_title">-->
-<!--        <h2>Статьи автора: {{ view.kwargs.username }}</h2>-->
-<!--    </div>-->
-
-<!--<span class="all_articles_title">(всего: <b>{{ page_obj.paginator.count }}</b>)</span>-->
-
-<div class="all_articles_title">
-    <p >Статьи автора <b>{{ view.kwargs.username }}</b> (всего: <b>{{ page_obj.paginator.count }}</b>)</p>
-</div>
-
-<div class="previous_content_block">
-    {% for post in articles %}
-    <div class="post">
-        {% if post.img %}
-        <span><img class="post_image" src="{{ post.img.url }}"></span>
-        {% endif %}
-        <a class="lnk" href="{% url 'article_detail' post.id %}" title="{{ post.title }}"><h3>{{ post.title|striptags|truncatechars:145 }}</h3></a>
-        <div class="post_info">
-            <div class="post_author_image">
-                <img src="{{ post.author.profile.img.url }}" alt="{{ post.author }}" class = "user_images">
-            </div>
-            <div class="post_meta_info">
-                {% if post.author %}
-                <span>Автор: <a class="lnk_author" href="{% url 'user_articles' post.author %}">{{ post.author }}</a> &nbsp Опубликовано: {{ post.date|date:"d E Y" }}</span>
-                {% else %}
-                <p>Автор: Unknown</p>
-                <p>Опубликовано: {{ post.date|date:"d E Y" }}</p>
-                {% endif %}
-            </div>
+    <aside class="sidebar sidebar_left">
+    <div class="sidebar__follow sidebar-left-container">
+        <div class="sidebar__header sidebar__header_left">
+            <h3>Always in touch!</h3>
         </div>
-        <p>{{ post.text|striptags|truncatechars:150 }}</p>
-        <a class="readmore" href="{% url 'article_detail' post.id %}">Читать далее</a>
+        <div class="sidebar__social">
+            <p>На случай, если у вас появятся какие-то вопросы или предложения по моим статьям, я всегда на связи и готов к обсуждениям! </p>
+            <a href="#" class="sidebar__link"><img src={% static "mainblog/pictures/icons/social/google-icon.svg" %} alt="google"></a>
+            <a href="#" class="sidebar__link"><img src={% static "mainblog/pictures/icons/social/telegram-icon.svg" %} alt="telegram"></a>
+            <a href="#" class="sidebar__link"><img src={% static "mainblog/pictures/icons/social/twitter-icon.svg" %} alt="twitter"></a>
+            <a href="#" class="sidebar__link"><img src={% static "mainblog/pictures/icons/social/instagram-icon.svg" %} alt="instagram"></a>
+            <a href="#" class="sidebar__link"><img src={% static "mainblog/pictures/icons/social/vk-icon.svg" %} alt="vk"></a>
+            <a href="#" class="sidebar__link"><img src={% static "mainblog/pictures/icons/social/facebook-icon.svg" %} alt="facebook"></a>
+        </div>
     </div>
-    {% endfor %}
-</div>
+</aside>
+    <section class="content">
+        <section class="content__author-articles articles">
+            <div id="articles"></div>
+            <h2>All posts (всего: <b>{{ page_obj.paginator.count }}</b>)</h2>
+            <div class="articles__last-article">
+                {% for post in articles %}
+                    {% if post != last_post %}
+                        <div class="articles__item articles__item_big">
+                            {% if post.img %}
+                                {% if post.img == default_image %}
+                                    <span>There is no image</span>
+                                {% else %}
+                                    <a href="{% url 'article_detail' post.id %}" class="articles__image ">
+                                        <img src="{{ post.img.url }}" alt="">
+                                    </a>
+                                {% endif %}
+                            {% endif %}
+                            <a href="{% url 'article_detail' post.id %}" class="articles__name">{{ post.title }}</a>
+                            <p class="articles__description">Опубликовано: {{ post.date|date:"d E Y" }}</p>
+                            <p class="articles__description">{{ post.text|striptags|truncatechars:100 }}</p>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="nav_pages">
+                <div class="pages">
+                    {% if is_paginated %}
+                        {% if page_obj.has_previous %}
+                            <a class="pagination" href="{% url 'user_articles' 'prothean' %}">На первую</a>
+                            <a class="pagination" href="?page={{ page_obj.previous_page_number }}">Предыдущая</a>
+                        {% endif %}
+                    {% for num in page_obj.paginator.page_range %}
+                    {% if num == page_obj.number %}
+                        <button class="paginated">{{ num }}</button>
+                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                        <a class="pagination" href="?page={{ num }}">{{ num }}</a>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if page_obj.has_next %}  <!--проверяем, есть ли последующие страницы-->
+                        <a class="pagination" href="?page={{ page_obj.next_page_number }}">Следующая</a>
+                        <a class="pagination" href="?page={{ page_obj.paginator.num_pages }}">Последняя</a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        </section>
+    </section>
 {% endblock %}
 
-{% block pagination %}
-<div class="nav_pages">
-    <div class="pages">
-        {% if is_paginated %}
-        {% if page_obj.has_previous %}
-        <a class="pagination" href="{% url 'home' %}">На первую</a>
-        <a class="pagination" href="?page={{ page_obj.previous_page_number }}">Предыдущая</a>
-        {% endif %}
-
-        {% for num in page_obj.paginator.page_range %}
-        {% if num == page_obj.number %}
-        <button class="paginated">{{ num }}</button>
-        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-        <a class="pagination" href="?page={{ num }}">{{ num }}</a>
-        {% endif %}
-        {% endfor %}
-
-        {% if page_obj.has_next %}  <!--проверяем, есть ли последующие страницы-->
-        <a class="pagination" href="?page={{ page_obj.next_page_number }}">Следующая</a>
-        <a class="pagination" href="?page={{ page_obj.paginator.num_pages }}">Последняя</a>
-        {% endif %}
-        {% endif %}
-    </div>
-</div>
-{% endblock %}

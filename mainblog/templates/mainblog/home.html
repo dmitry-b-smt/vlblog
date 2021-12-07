@@ -1,5 +1,55 @@
 <!--{% extends 'mainblog/base.html' %}-->
 {% load static %}
+
+
+{% block header %}
+<header class="header">
+                <div class="fullscreen">
+                    <div class="fullscreen__body">
+                        <div class="header__container container">
+                            <div class="header__row">
+                                <div class="header__column">
+                                    <div class="header__item">
+                                        <div class="header__logo">
+                                            <a href="{% url 'home' %}" class="header__logo-item link logo-item">
+                                                <p class="logo-item__text">eco</p>
+                                                <div class="logo-item__picture">
+                                                    <img src={% static "mainblog/pictures/logo/izba.jpg" %} alt="logo-izba">
+                                                </div>
+                                                <p class="logo-item__text">borsch</p>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="header__column">
+                                    <div class="header__item">
+                                        <ul class="header__menu">
+                                            <li><a href="{% url 'user_articles' 'prothean' %}" class="header__link link">posts</a></li>
+                                            <li><a href="{% url 'all_products' %}" class="header__link link">borsch index</a></li>
+                                            <li><a href="{% url 'registration' %}" class="header__link link">registration</a></li>
+                                            <li><a href="{% url 'user' %}" class="header__link link">log in</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="header__row">
+                                <div class="header__big-text">
+                                    <p>the most divinest borschy</p>
+                                    <p>by local economist-man...</p>
+                                </div>
+                            </div>
+                            <div class="header__blog">
+                                <a href="#articles"><img src={% static "mainblog/pictures/icons/white-down-arrow.svg" %} alt="down-arrow" title="Go to my recent posts"></a>
+                            </div>
+                        </div>
+                    </div>
+                    <picture class="fullscreen__image">
+                        <img src={% static "mainblog/pictures/background/header_background.jpg" %} alt="background">
+                    </picture>
+                </div>
+            </header>
+{% endblock %}
+
 {% block content %}
 <aside class="sidebar sidebar_left">
     <div class="sidebar__borsch-price sidebar-left-container">
@@ -57,7 +107,7 @@
         <div class="sidebar__graph-card">
             <div class="sidebar__graph-card-front">
                 <div class="sidebar__image">
-                    <img src={% static "mainblog/pictures/dia.svg" %} alt="dia">
+                    <img src={% static "mainblog/pictures/calc.svg" %} alt="calc">
                 </div>
             </div>
             <div class="sidebar__graph-card-back">
@@ -67,7 +117,7 @@
                     </div>
                 </div>
                 <div class="sidebar__image">
-                    <img src={% static "mainblog/pictures/dia.svg" %} alt="dia">
+                    <img src={% static "mainblog/pictures/calc.svg" %} alt="calc">
                 </div>
             </div>
         </div>
@@ -181,7 +231,7 @@
             {% endfor %}
         </div>
         <div class="articles__button">
-            <a href="#" class="articles__all-articles">All my posts</a>
+            <a href="{% url 'user_articles' 'prothean' %}" class="articles__all-articles">All my posts</a>
         </div>
     </section>
 </section>
@@ -227,176 +277,14 @@
 <!--{% endblock %}-->
 
 
-<!-- block content -->
-
 <!--    {% if messages %}-->
 <!--        {% for message in messages %}-->
 <!--            <a href="#last_comment"><div class="message">{{ message }}</div></a>-->
 <!--        {% endfor %}-->
 <!--    {% endif %}-->
 
-<!--    {% for post in articles %}-->
-<!--        {% if post == last_post %}-->
-<!--            <div class="last_content_container">-->
-<!--                <div class="last_post_title_container">-->
-<!--                    <div class="last_post_title">-->
-<!--                        <a class="lnk" href="{% url 'article_detail' post.id %}"><h2>{{ post.title }}</h2></a>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="last_content">-->
-<!--                    <div class="last_post">-->
-<!--    &lt;!&ndash;                    <a class="lnk" href="{% url 'article_detail' post.id %}"><h2>{{ post.title }}</h2></a>&ndash;&gt;-->
-<!--                        <div class="last_post_info">-->
-<!--                            <div class="post_author_image">-->
-<!--                                <img src="{{ post.author.profile.img.url }}" alt="{{ post.author }}" class = "user_images">-->
-<!--                            </div>-->
-<!--                            <div class="post_meta_info">-->
-<!--                                {% if post.author %}-->
-<!--                                    <span>Автор: <a class="lnk_author" href="{% url 'user_articles' post.author %}">{{ post.author }}</a> &nbsp Опубликовано: {{ post.date|date:"d E Y" }}</span>-->
-<!--                                {% else %}-->
-<!--                                    <p>Автор: Unknown</p>-->
-<!--                                    <p>Опубликовано: {{ post.date|date:"d E Y" }}</p>-->
-<!--                                {% endif %}-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        {% if post.img %}-->
-<!--                            {% if post.img == default_image %}-->
-<!--                                <span></span>-->
-<!--                            {% else %}-->
-<!--                                <span><img class="last_post_image" src="{{ post.img.url }}"></span>-->
-<!--                            {% endif %}-->
-<!--                        {% endif %}-->
-<!--                        <p>{{ post.text|striptags|truncatechars:210 }}</p>-->
-<!--                        <a class="readmore" href="{% url 'article_detail' post.id %}">Читать далее</a>-->
-<!--                    </div>-->
-<!--                    <div class="addition_info_content_block">-->
-<!--    &lt;!&ndash;                    <div class="empty_space_block"></div>&ndash;&gt;-->
-<!--                        {% if rand_post.img == default_image %}-->
-<!--                            <div class="random_post_without_image">-->
-<!--                                <div class="random_post">-->
-<!--                                    <a class="lnk" href="{% url 'article_detail' rand_post.id %}" title="{{ rand_post.title }}"><div class="">-->
-<!--                                        {% if rand_post.img %}-->
-<!--                                        <span></span>-->
-<!--                                        {% endif %}</div>-->
-<!--                                        <p><b>{{ rand_post.title|striptags|truncatechars:25 }}</b> <span class="random_post_date">{{ rand_post.date|date:"d E Y" }}</span></p>-->
-<!--                                    </a>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        {% else %}-->
 
 
 
 
-<!--                            <div class="random_post" title="{{ rand_post.title }}">-->
-<!--                                <div class="random_post_container">-->
-<!--                                    {% if rand_post.img %}-->
-<!--                                        <img class="random_post_image" src="{{ rand_post.img.url }}">-->
-<!--                                    {% endif %}-->
-<!--    -->
-<!--                                    <div class="fade_in_menu">-->
-<!--                                        <span>{{ rand_post.title|striptags|truncatechars:27 }}</span>-->
-<!--                                        <span>{{ rand_post.date|date:"d E Y" }}</span>-->
-<!--                                        <span><a class="fade_in_menu_readmore" href="{% url 'article_detail' rand_post.id %}">Читать далее</a></span>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        {% endif %}-->
 
-
-
-<!--                        <div class="random_post" title="{{ rand_post_2.title }}">-->
-<!--                            <div class="random_post_container">-->
-<!--                                {% if rand_post_2.img %}-->
-<!--                                    <img class="random_post_image" src="{{ rand_post_2.img.url }}">-->
-<!--                                {% endif %}-->
-
-<!--                                <div class="fade_in_menu">-->
-<!--                                    <span>{{ rand_post_2.title|striptags|truncatechars:27 }}</span>-->
-<!--                                    <span>{{ rand_post_2.date|date:"d E Y" }}</span>-->
-<!--                                    <span><a class="fade_in_menu_readmore" href="{% url 'article_detail' rand_post_2.id %}">Читать далее</a></span>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="index_borsch">-->
-<!--                        <span>Сколько стоит литр борща?</span>-->
-<!--                        {% for product in borsch %}-->
-<!--                            {% load mathfilters %}-->
-<!--                            <div class="borsch_item">-->
-<!--                                {{ product.name }} ({{ product.grammovka }}гр.): {{ product.price|mul:product.grammovka|div:product.kilo|floatformat:2 }}р.-->
-<!--                            </div>-->
-<!--                        {% endfor %}-->
-<!--                        <div>-->
-<!--                            Итого: ~-->
-<!--                            <script>-->
-<!--                                var resultat = 0;-->
-<!--                                {% for product in borsch %}-->
-<!--                                    var c = ({{ product.price }}) * ({{product.grammovka }}) / ({{ product.kilo }});-->
-<!--                                    resultat += c;-->
-<!--                                {% endfor %}-->
-<!--                                var itog;-->
-<!--                                itog = Math.round(resultat);-->
-<!--                                document.write(itog);-->
-<!--                            </script>р.-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        {% endif %}-->
-<!--    {% endfor %}-->
-<!--    <div class="previous_content_block">-->
-<!--        {% for post in articles %}-->
-<!--            <div class="post">-->
-<!--                {% if post.img %}-->
-<!--                    {% if post.img == default_image %}-->
-<!--                        <span>There is no image</span>-->
-<!--                    {% else %}-->
-<!--                        <span><img class="post_image" src="{{ post.img.url }}"></span>-->
-<!--                    {% endif %}-->
-<!--                {% endif %}-->
-<!--                <a class="lnk" href="{% url 'article_detail' post.id %}" title="{{ post.title }}"><h3 class="post_title">{{ post.title|striptags|truncatechars:145 }}</h3></a>-->
-<!--                <div class="post_info">-->
-<!--                    <div class="post_author_image">-->
-<!--                        <img src="{{ post.author.profile.img.url }}" alt="{{ post.author }}" class = "user_images">-->
-<!--                    </div>-->
-<!--                    <div class="post_meta_info">-->
-<!--                        {% if post.author %}-->
-<!--                            <span><a class="lnk_author" href="{% url 'user_articles' post.author %}">{{ post.author }}</a> &nbsp <span class="publication_date">{{ post.date|date:"d E Y" }}</span></span>-->
-<!--                        {% else %}-->
-<!--                        <p>Автор: Unknown</p>-->
-<!--                        <p>Опубликовано: {{ post.date|date:"d E Y" }}</p>-->
-<!--                        {% endif %}-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <p>{{ post.text|striptags|truncatechars:150 }}</p>-->
-<!--                <a class="readmore" href="{% url 'article_detail' post.id %}">Читать далее</a>-->
-<!--            </div>-->
-<!--        {% endfor %}-->
-<!--    </div>-->
-<!-- endblock -->
-
-<!--{% block pagination %}-->
-<!--    <div class="nav_pages">-->
-<!--        <div class="pages">-->
-<!--            {% if is_paginated %}-->
-<!--                {% if page_obj.has_previous %}-->
-<!--                    <a class="pagination" href="{% url 'home' %}">На первую</a>-->
-<!--                    <a class="pagination" href="?page={{ page_obj.previous_page_number }}">Предыдущая</a>-->
-<!--                {% endif %}-->
-
-<!--                {% for num in page_obj.paginator.page_range %}-->
-<!--                    {% if num == page_obj.number %}-->
-<!--                        <button class="paginated">{{ num }}</button>-->
-<!--                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}-->
-<!--                        <a class="pagination" href="?page={{ num }}">{{ num }}</a>-->
-<!--                    {% endif %}-->
-<!--                {% endfor %}-->
-
-<!--                {% if page_obj.has_next %}-->
-<!--                    <a class="pagination" href="?page={{ page_obj.next_page_number }}">Следующая</a>-->
-<!--                    <a class="pagination" href="?page={{ page_obj.paginator.num_pages }}">Последняя</a>-->
-<!--                {% endif %}-->
-<!--            {% endif %}-->
-<!--        </div>-->
-<!--    </div>-->
-<!--{% endblock %}-->
