@@ -68,29 +68,27 @@
             <a href="#" class="sidebar__link"><img src={% static "mainblog/pictures/icons/social/facebook-icon.svg" %} alt="facebook"></a>
         </div>
     </div>
-</aside>
+    </aside>
     <section class="content">
         <section class="content__author-articles articles">
             <div id="articles"></div>
             <h2>All posts (всего: <b>{{ page_obj.paginator.count }}</b>)</h2>
             <div class="articles__last-article">
                 {% for post in articles %}
-                    {% if post != last_post %}
-                        <div class="articles__item articles__item_big">
-                            {% if post.img %}
-                                {% if post.img == default_image %}
-                                    <span>There is no image</span>
-                                {% else %}
-                                    <a href="{% url 'article_detail' post.id %}" class="articles__image ">
-                                        <img src="{{ post.img.url }}" alt="">
-                                    </a>
-                                {% endif %}
+                    <div class="articles__item articles__item_big">
+                        {% if post.img %}
+                            {% if post.img == default_image %}
+                                <span>There is no image</span>
+                            {% else %}
+                                <a href="{% url 'article_detail' post.id %}" class="articles__image ">
+                                    <img src="{{ post.img.url }}" alt="">
+                                </a>
                             {% endif %}
-                            <a href="{% url 'article_detail' post.id %}" class="articles__name">{{ post.title }}</a>
-                            <p class="articles__description">Опубликовано: {{ post.date|date:"d E Y" }}</p>
-                            <p class="articles__description">{{ post.text|striptags|truncatechars:100 }}</p>
-                        </div>
-                    {% endif %}
+                        {% endif %}
+                        <a href="{% url 'article_detail' post.id %}" class="articles__name">{{ post.title }}</a>
+                        <p class="articles__description">Опубликовано: {{ post.date|date:"d E Y" }}</p>
+                        <p class="articles__description">{{ post.text|striptags|truncatechars:100 }}</p>
+                    </div>
                 {% endfor %}
             </div>
             <div class="nav_pages">

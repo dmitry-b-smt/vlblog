@@ -308,17 +308,27 @@ h3 {
     letter-spacing: 3px;
 }
 
-.header__blog {
+.blog__arrow {
     align-self: center;
     padding: 10px 10px 25px 10px;
-    transition: all 0.1s ease-in-out 0s;
+    transition: all 0.3s ease-in-out 0s;
     transform: scale3d(1, 1, 1);
 }
-.header__blog a>img {
+.blog__arrow a {
+    display: inline-block;
+    position: relative;
     width: 72px;
     height: 72px;
 }
-.header__blog:hover {
+.blog__arrow a>img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.blog__arrow:hover {
     transform: scale3d(1.2, 1.2, 1);
 }
 
@@ -827,22 +837,34 @@ h3 {
     letter-spacing: 1.2px;
 }
 .footer__container {
+    padding-top: 0;
 }
 
 .footer__row {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
 }
 .footer__column {
+    padding: 30px;
     flex: 1 1 auto;
-    margin: 0px 10px 0px 0px;
+    width: 33.333%;
 }
-.footer__column:last-child {
-    width: 40%;
-    margin: 0px 0px 0px 0px;
-}
+
 .footer__item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.footer__column:nth-child(2) > .footer__item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.footer__column:nth-child(2) > .footer__item > p {
+    font-size: 14px;
+    text-align: center;
 }
 .footer__logo {
     font-family: mandys-scetch;
@@ -875,8 +897,46 @@ h3 {
 }
 .link {
 }
-.footer__contacts {
-    font-style: italic;
+.footer__social {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
-.footer__text {
+.footer__social-link {
+    display: block;
+    width: 60px;
+    height: 60px;
+    position: relative;
+    overflow: hidden;
+}
+.footer__social-link > img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+
+
+
+.article {
+    display: flex;
+    flex-direction: column;
+}
+.article__image {
+    position: relative;
+    overflow: hidden;
+    padding: 0 0 70% 0;
+    margin: 0 0 20px 0;
+}
+.article__image > img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }

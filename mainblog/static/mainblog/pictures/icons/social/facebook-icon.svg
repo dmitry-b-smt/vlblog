@@ -5,6 +5,9 @@
 <defs>
 </defs>
 <g transform="matrix(0.39 0 0 0.39 200 200)" id="Layer_1"  >
-<path style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;"  transform=" translate(-256, -256)" d="M 256 0 C 114.615 0 0 114.615 0 256 S 114.615 512 256 512 S 512 397.385 512 256 S 397.385 0 256 0 Z m 67.59 153.428 s -26.194 -2.064 -36.513 1.746 c -17.056 6.3 -17.462 21.034 -17.462 35.084 v 28.694 h 52.149 l -7.62 54.888 H 269.615 V 409.333 h -58.9 V 273.84 H 161.744 V 218.952 h 48.974 V 172.4 c 0 -49.292 37.942 -67.151 60.563 -69.294 s 52.309 4.286 52.309 4.286 Z" stroke-linecap="round" />
+<path style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;"  transform=" translate(-256, -256)" d="M 437.017 74.985 C 390.665 28.629 326.732 0 256 0 S 121.338 28.629 74.986 74.985 C 28.634 121.341 0 185.268 0 256 s 28.634 134.661 74.986 181.014 C 121.338 483.368 185.268 512 256 512 s 134.665 -28.632 181.017 -74.986 C 483.368 390.661 512 326.732 512 256 S 483.368 121.341 437.017 74.985 z" stroke-linecap="round" />
+</g>
+<g transform="matrix(0.39 0 0 0.39 200 200.03)" id="Layer_1"  >
+<path style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(255,255,255); fill-rule: evenodd; opacity: 1;"  transform=" translate(-256, -256.07)" d="M 275.559 203.692 v -20.978 c 0 -10.064 6.664 -12.473 11.491 -12.473 c 4.675 0 29.338 0 29.338 0 v -44.795 h -40.4 c -44.933 0 -54.995 33.168 -54.995 54.716 v 23.529 h -26.087 v 31.61 V 256 h 26.365 c 0 59.393 0 130.695 0 130.695 h 52.309 c 0 0 0 -72.295 0 -130.695 h 38.693 l 1.707 -20.554 l 3.12 -31.754 H 275.559 z" stroke-linecap="round" />
 </g>
 </svg>

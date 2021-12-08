@@ -38,7 +38,7 @@
                                     <p>by local economist-man...</p>
                                 </div>
                             </div>
-                            <div class="header__blog">
+                            <div class="blog__arrow">
                                 <a href="#articles"><img src={% static "mainblog/pictures/icons/white-down-arrow.svg" %} alt="down-arrow" title="Go to my recent posts"></a>
                             </div>
                         </div>
@@ -231,7 +231,7 @@
             {% endfor %}
         </div>
         <div class="articles__button">
-            <a href="{% url 'user_articles' 'prothean' %}" class="articles__all-articles">All my posts</a>
+            <a href="{% url 'user_articles' 'prothean' %}" class="articles__all-articles">My blog</a>
         </div>
     </section>
 </section>

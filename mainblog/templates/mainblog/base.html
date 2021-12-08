@@ -14,13 +14,57 @@
     <body>
         <div class="wrapper">
             {% block header %}
+            <header class="header">
+                <div class="fullscreen fullscreen_small">
+                    <div class="fullscreen__body">
+                        <div class="header__container container header__container_small">
+                            <div class="header__row">
+                                <div class="header__column">
+                                    <div class="header__item">
+                                        <div class="header__logo">
+                                            <a href="{% url 'home' %}" class="header__logo-item link logo-item">
+                                                <p class="logo-item__text">eco</p>
+                                                <div class="logo-item__picture">
+                                                    <img src={% static "mainblog/pictures/logo/izba.jpg" %} alt="logo-izba">
+                                                </div>
+                                                <p class="logo-item__text">borsch</p>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="header__column">
+                                    <div class="header__item">
+                                        <ul class="header__menu">
+                                            <li><a href="{% url 'user_articles' 'prothean' %}" class="header__link link">posts</a></li>
+                                            <li><a href="{% url 'all_products' %}" class="header__link link">borsch index</a></li>
+                                            <li><a href="{% url 'registration' %}" class="header__link link">registration</a></li>
+                                            <li><a href="{% url 'user' %}" class="header__link link">log in</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="header__row">
+                                <div class="header__big-text header__big-text_small">
+                                    <p>the most divinest borschy</p>
+                                    <p>by local economist-man...</p>
+                                </div>
+                            </div>
+                            <div class="header__blog">
+                            </div>
+                        </div>
+                    </div>
+                    <picture class="fullscreen__image">
+                        <img src={% static "mainblog/pictures/background/header_background.jpg" %} alt="background">
+                    </picture>
+                </div>
+            </header>
             {% endblock %}
             <main class="main">
                 {% block content %}
                 {% endblock %}
             </main>
             <footer class="footer">
-                <div class="container footer__container">
+                <div class="footer__container container">
                     <div class="footer__row">
                         <div class="footer__column">
                             <div class="footer__item">
@@ -33,28 +77,22 @@
                         </div>
                         <div class="footer__column">
                             <div class="footer__item">
-                                <ul class="footer__menu">
-                                    <li><a href="#" class="footer__link link">on top</a></li>
-                                    <li><a href="#" class="footer__link link">blog</a></li>
-                                    <li><a href="#" class="footer__link link">borsch <span>index</span></a></li>
-                                </ul>
+                                <div class="blog__arrow">
+                                    <a href="#articles"><img src={% static "mainblog/pictures/icons/white-up-arrow.svg" %} alt="down-arrow" title="Go to my recent posts"></a>
+                                </div>
+                                <p>EcoBorsch Blog Resource by Dmitry B. © 2021.</p>
+                                <p>All Rights Reserved.</p>
                             </div>
                         </div>
                         <div class="footer__column">
                             <div class="footer__item">
-                                <p>Contacts:</p>
-                                <ul class="footer__contacts">
-                                    <li>email@address.com</li>
-                                    <li>telegram</li>
-                                    <li>twitter</li>
-                                    <li>instagram</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="footer__column">
-                            <div class="footer__item">
-                                <div class="footer__text">
-                                    {% lorem 33 w %}
+                                <div class="footer__social">
+                                    <a href="#" class="footer__social-link"><img src={% static "mainblog/pictures/icons/social/google-icon.svg" %} alt="google"></a>
+                                    <a href="#" class="footer__social-link"><img src={% static "mainblog/pictures/icons/social/telegram-icon.svg" %} alt="telegram"></a>
+                                    <a href="#" class="footer__social-link"><img src={% static "mainblog/pictures/icons/social/twitter-icon.svg" %} alt="twitter"></a>
+                                    <a href="#" class="footer__social-link"><img src={% static "mainblog/pictures/icons/social/instagram-icon.svg" %} alt="instagram"></a>
+                                    <a href="#" class="footer__social-link"><img src={% static "mainblog/pictures/icons/social/vk-icon.svg" %} alt="vk"></a>
+                                    <a href="#" class="footer__social-link"><img src={% static "mainblog/pictures/icons/social/facebook-icon.svg" %} alt="facebook"></a>
                                 </div>
                             </div>
                         </div>
@@ -110,10 +148,10 @@
 <!--            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>-->
 <!--            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>-->
 
-<!--            <div>-->
-<!--                {% block js %}-->
-<!--                {% endblock %}-->
-<!--            </div>-->
+            <div>
+                {% block js %}
+                {% endblock %}
+            </div>
 <!--    </div>-->
 
 <!--    <footer>-->

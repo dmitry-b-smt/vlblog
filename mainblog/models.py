@@ -68,7 +68,8 @@ class ActiveFilterComments(models.Manager):
 
 class Comments(models.Model):
     article = models.ForeignKey(Articles, on_delete=models.CASCADE, verbose_name='Статья', blank=True, null=True, related_name='comments_articles')
-    author = models.CharField(verbose_name='Автор комментария', max_length=50)
+    # author = models.CharField(verbose_name='Автор комментария', max_length=50)
+    author = models.ForeignKey(User, verbose_name='Автор комментария', max_length=50, on_delete=models.CASCADE)
     email = models.EmailField(verbose_name='E-mail')
     text = models.TextField(verbose_name='Текст комментария')
     date = models.DateTimeField(verbose_name='Дата публикации комментария', default=timezone.now)
