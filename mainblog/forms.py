@@ -91,7 +91,7 @@ class CommentForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
-            self.fields['text'].widget = Textarea(attrs={'class': 'comment_form_text_field', 'placeholder': 'Ваш комментарий', 'rows': 5,})
+            self.fields['text'].widget = Textarea(attrs={'class': 'comments__form-textarea', 'placeholder': 'Ваш комментарий', 'rows': 5,})
 
 
 class BorschForm(forms.ModelForm):

@@ -157,7 +157,7 @@ class ArticleDetail(CustomSuccessMessageMixin, FormMixin, DetailView):
     template_name = 'mainblog/article_detail.html'
     context_object_name = 'get_article'
     form_class = CommentForm
-    success_msg = 'Ваш комментарий будет опубликован после проверки модератором'
+    success_msg = 'Ваш комментарий отправлен на модерацию. Он будет опубликован сразу после проверки'
 
     def get_context_data(self, *args, **kwargs):
         ctx = super(ArticleDetail, self).get_context_data(*args, **kwargs)
@@ -195,12 +195,9 @@ def update_comment_status(request, pk, type):
             comment.active = True
             comment.save()
             template = Template('''
-                <p class="">
-                    <p><b>{{ comment.author }}</b> {{ comment.date }}: </p>
-                    <span class="active_true">{{ comment.text }}</span> <br>
-                    
-                    <div class="comment_control">
-                        <span class="comment_control_text">Комментарий опубликован &nbsp<div class="approve_image"></div> </span>&nbsp&nbsp&nbsp&nbsp<a class="reject_comment_button" title="Удалить" data-url="{% url 'update_comment_status' comment.id 'delete' %}" href="#"></a> </p>
+                    <div class="comments__control">
+                        <p>Комментарий опубликован</p>
+                        <a class="button comments__button_reject" title="Удалить" data-url="{% url 'update_comment_status' comment.id 'delete' %}" href="#">Удалить</a>
                     </div>
             ''')
             context = Context({'comment': comment})
@@ -209,8 +206,8 @@ def update_comment_status(request, pk, type):
         elif type == 'delete':
             comment.delete()
             return HttpResponse('''
-                <div class="delcomm_good">
-                    <span class="comment_control_text">Комментарий был успешно удалён &nbsp<div class="delete_image"></div> </span>
+                <div class="comments__control">
+                    <p>Комментарий был успешно удалён</p>
                 </div>
             ''')
 
