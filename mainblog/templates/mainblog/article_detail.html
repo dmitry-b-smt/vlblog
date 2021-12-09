@@ -1,7 +1,67 @@
 {% extends 'mainblog/base.html' %}
 {% load static %}
 
-
+{% block header %}
+    <header class="header">
+                <div class="fullscreen fullscreen_small">
+                    <div class="fullscreen__body">
+                        <div class="header__container container header__container_small">
+                            <div class="header__row">
+                                <div class="header__column">
+                                    <div class="header__item">
+                                        <div class="header__logo">
+                                            <a href="{% url 'home' %}" class="header__logo-item link logo-item">
+                                                <p class="logo-item__text">eco</p>
+                                                <div class="logo-item__picture">
+                                                    <img src={% static "mainblog/pictures/logo/izba.jpg" %} alt="logo-izba">
+                                                </div>
+                                                <p class="logo-item__text">borsch</p>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="header__column">
+                                    <div class="header__item">
+                                        <ul class="header__menu">
+                                            {% if not user.is_authenticated %}
+                                                <li><a href="{% url 'user_articles' 'prothean' %}" class="header__link link">blog</a></li>
+                                                <li><a href="{% url 'all_products' %}" class="header__link link">borsch index</a></li>
+                                                <li><a href="{% url 'registration' %}" class="header__link link">registration</a></li>
+                                                <li><a href="{% url 'user' %}" class="header__link link">log in</a></li>
+                                            {% else %}
+                                                {% if user.username == 'admin' or user.username == 'prothean' %}
+                                                    <li><a href="{% url 'user_articles' 'prothean' %}" class="header__link link">blog</a></li>
+                                                    <li><a href="{% url 'all_products' %}" class="header__link link">borsch index</a></li>
+                                                    <li><a href="{% url 'profile' %}" class="header__link link">profile</a></li>
+                                                    <li><a href="{% url 'article_add' %}" class="header__link link">new article</a></li>
+                                                    <li><a href="{% url 'exit' %}" class="header__link link">log out</a></li>
+                                                {% else %}
+                                                    <li><a href="{% url 'user_articles' 'prothean' %}" class="header__link link">blog</a></li>
+                                                    <li><a href="{% url 'all_products' %}" class="header__link link">borsch index</a></li>
+                                                    <li><a href="{% url 'profile' %}" class="header__link link">profile</a></li>
+                                                    <li><a href="{% url 'exit' %}" class="header__link link">log out (<b>{{ user.username }}</b>)</a></li>
+                                                {% endif %}
+                                            {% endif %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="header__row">
+                                <div class="header__big-text header__big-text_small">
+                                    <p>the most divinest borschy</p>
+                                    <p>by local economist-man...</p>
+                                </div>
+                            </div>
+                            <div class="header__blog">
+                            </div>
+                        </div>
+                    </div>
+                    <picture class="fullscreen__image">
+                        <img src={% static "mainblog/pictures/background/header_background.jpg" %} alt="background">
+                    </picture>
+                </div>
+</header>
+{% endblock %}
 
 {% block title %}
     {{ title }}
@@ -140,11 +200,8 @@
                     <script>
                         alert("{{ message }}");
                     </script>
-<!--                    <a href="#last_comment"><div class="message">{{ message }}</div></a>-->
                 {% endfor %}
             {% endif %}
-
-
 
     <script>
         $('body').on('click', '.comments__button_approve', function(event){
@@ -163,7 +220,6 @@
                     }
                 })
             }
-
         })
         $('body').on('click', '.comments__button_reject', function(event){
             event.preventDefault();
@@ -181,7 +237,6 @@
                     }
                 })
             }
-
         })
     </script>
 

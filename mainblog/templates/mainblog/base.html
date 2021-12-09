@@ -14,50 +14,6 @@
     <body>
         <div class="wrapper">
             {% block header %}
-            <header class="header">
-                <div class="fullscreen fullscreen_small">
-                    <div class="fullscreen__body">
-                        <div class="header__container container header__container_small">
-                            <div class="header__row">
-                                <div class="header__column">
-                                    <div class="header__item">
-                                        <div class="header__logo">
-                                            <a href="{% url 'home' %}" class="header__logo-item link logo-item">
-                                                <p class="logo-item__text">eco</p>
-                                                <div class="logo-item__picture">
-                                                    <img src={% static "mainblog/pictures/logo/izba.jpg" %} alt="logo-izba">
-                                                </div>
-                                                <p class="logo-item__text">borsch</p>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="header__column">
-                                    <div class="header__item">
-                                        <ul class="header__menu">
-                                            <li><a href="{% url 'user_articles' 'prothean' %}" class="header__link link">posts</a></li>
-                                            <li><a href="{% url 'all_products' %}" class="header__link link">borsch index</a></li>
-                                            <li><a href="{% url 'registration' %}" class="header__link link">registration</a></li>
-                                            <li><a href="{% url 'user' %}" class="header__link link">log in</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="header__row">
-                                <div class="header__big-text header__big-text_small">
-                                    <p>the most divinest borschy</p>
-                                    <p>by local economist-man...</p>
-                                </div>
-                            </div>
-                            <div class="header__blog">
-                            </div>
-                        </div>
-                    </div>
-                    <picture class="fullscreen__image">
-                        <img src={% static "mainblog/pictures/background/header_background.jpg" %} alt="background">
-                    </picture>
-                </div>
-            </header>
             {% endblock %}
             <main class="main">
                 {% block content %}
@@ -144,50 +100,15 @@
 <!--                {% endblock %}-->
 <!--            </div>-->
 
-<!--            <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>-->
-<!--            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>-->
-<!--            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>-->
+            <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
             <div>
                 {% block js %}
                 {% endblock %}
             </div>
 <!--    </div>-->
-
-<!--    <footer>-->
-<!--        <div class="footer_main_container">-->
-<!--            <div class="footer_content">-->
-<!--                <div class="footer_logo">-->
-<!--                    <div class="logo_img">-->
-<!--                        <a class="footer_eco_borsch" href="{% url 'home' %}"><span class="">ЭКО<img src={% static 'mainblog/pictures/izba.jpg' %} class="izba"></img>Борщ</span></a>-->
-<!--                    </div>-->
-<!--                    <p>Чтиво от ЭКО для ЭКО</p>-->
-<!--                </div>-->
-<!--                <div class="footer_meta">-->
-<!--                    <div class="footer_menu">-->
-<!--                        {% if user.username == 'admin' or user.username == 'prothean' %}-->
-<!--                        <span><a class="footer_lnk" href="{% url 'about' %}">О нас</a></span>-->
-<!--                        <span><a class="footer_lnk" href="{% url 'contacts' %}">Контакты</a></span>-->
-<!--                        <span><a class="footer_lnk" href="{% url 'all_products' %}">Индекс борща</a></span>-->
-<!--                        <span><a class="footer_lnk" href="/admin">Adminka</a></span>-->
-<!--                        {% else %}-->
-<!--                        <span><a class="footer_lnk" href="{% url 'about' %}">О нас</a></span>-->
-<!--                        <span><a class="footer_lnk" href="{% url 'contacts' %}">Контакты</a></span>-->
-<!--                        <span><a class="footer_lnk" href="{% url 'all_products' %}">Индекс борща</a></span>-->
-<!--                        {% endif %}-->
-<!--                    </div>-->
-<!--                    <div class="social_links">-->
-<!--                        <span><a class="footer_lnk" href="">VK</a></span>-->
-<!--                        <span><a class="footer_lnk" href="">TL</a></span>-->
-<!--                        <span><a class="footer_lnk" href="">WH</a></span>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="footer_text">-->
-<!--                    {% lorem 35 w %}-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </footer>-->
 
 
 

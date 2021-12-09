@@ -1,6 +1,10 @@
 {% extends 'mainblog/base.html' %}
 {% load static %}
 
+{% block title %}
+    {{ title }}
+{% endblock %}
+
 {% block header %}
     <header class="header">
                 <div class="fullscreen fullscreen_small">
@@ -23,10 +27,25 @@
                                 <div class="header__column">
                                     <div class="header__item">
                                         <ul class="header__menu">
-                                            <li><a href="{% url 'user_articles' 'prothean' %}" class="header__link link">posts</a></li>
-                                            <li><a href="{% url 'all_products' %}" class="header__link link">borsch index</a></li>
-                                            <li><a href="{% url 'registration' %}" class="header__link link">registration</a></li>
-                                            <li><a href="{% url 'user' %}" class="header__link link">log in</a></li>
+                                            {% if not user.is_authenticated %}
+                                                <li><a href="{% url 'user_articles' 'prothean' %}" class="header__link link">blog</a></li>
+                                                <li><a href="{% url 'all_products' %}" class="header__link link">borsch index</a></li>
+                                                <li><a href="{% url 'registration' %}" class="header__link link">registration</a></li>
+                                                <li><a href="{% url 'user' %}" class="header__link link">log in</a></li>
+                                            {% else %}
+                                                {% if user.username == 'admin' or user.username == 'prothean' %}
+                                                    <li><a href="{% url 'user_articles' 'prothean' %}" class="header__link link">blog</a></li>
+                                                    <li><a href="{% url 'all_products' %}" class="header__link link">borsch index</a></li>
+                                                    <li><a href="{% url 'profile' %}" class="header__link link">profile</a></li>
+                                                    <li><a href="{% url 'article_add' %}" class="header__link link">new article</a></li>
+                                                    <li><a href="{% url 'exit' %}" class="header__link link">log out</a></li>
+                                                {% else %}
+                                                    <li><a href="{% url 'user_articles' 'prothean' %}" class="header__link link">blog</a></li>
+                                                    <li><a href="{% url 'all_products' %}" class="header__link link">borsch index</a></li>
+                                                    <li><a href="{% url 'profile' %}" class="header__link link">profile</a></li>
+                                                    <li><a href="{% url 'exit' %}" class="header__link link">log out (<b>{{ user.username }}</b>)</a></li>
+                                                {% endif %}
+                                            {% endif %}
                                         </ul>
                                     </div>
                                 </div>
@@ -48,10 +67,6 @@
 </header>
 {% endblock %}
 
-{% block title %}
-    {{ title }}
-{% endblock %}
-
 {% block content %}
     <aside class="sidebar sidebar_left">
     <div class="sidebar__follow sidebar-left-container">
@@ -59,7 +74,7 @@
             <h3>Always in touch!</h3>
         </div>
         <div class="sidebar__social">
-            <p>На случай, если у вас появятся какие-то вопросы или предложения по моим статьям, я всегда на связи и готов к обсуждениям! </p>
+            <p>На случай, если у вас появятся какие-то вопросы или предложения по моим статьям, я всегда на связи и готов к диалогу! </p>
             <a href="#" class="sidebar__link"><img src={% static "mainblog/pictures/icons/social/google-icon.svg" %} alt="google"></a>
             <a href="#" class="sidebar__link"><img src={% static "mainblog/pictures/icons/social/telegram-icon.svg" %} alt="telegram"></a>
             <a href="#" class="sidebar__link"><img src={% static "mainblog/pictures/icons/social/twitter-icon.svg" %} alt="twitter"></a>
@@ -72,10 +87,13 @@
     <section class="content">
         <section class="content__author-articles articles">
             <div id="articles"></div>
-            <h2>All posts (всего: <b>{{ page_obj.paginator.count }}</b>)</h2>
+            <h2>Здесь находятся все мои публикации. Приятного прочтения!</h2>
+<!--            (всего: <b>{{ page_obj.paginator.count }}</b>)-->
             <div class="articles__last-article">
                 {% for post in articles %}
                     <div class="articles__item articles__item_big">
+                        <p class="articles__description">Опубликовано: {{ post.date|date:"d E Y" }}</p>
+                        <h2><a href="{% url 'article_detail' post.id %}" class="articles__name">{{ post.title }}</a></h2>
                         {% if post.img %}
                             {% if post.img == default_image %}
                                 <span>There is no image</span>
@@ -85,9 +103,7 @@
                                 </a>
                             {% endif %}
                         {% endif %}
-                        <a href="{% url 'article_detail' post.id %}" class="articles__name">{{ post.title }}</a>
-                        <p class="articles__description">Опубликовано: {{ post.date|date:"d E Y" }}</p>
-                        <p class="articles__description">{{ post.text|striptags|truncatechars:100 }}</p>
+                        <p class="articles__preview">{{ post.text|striptags|truncatechars:200 }}</p>
                     </div>
                 {% endfor %}
             </div>
