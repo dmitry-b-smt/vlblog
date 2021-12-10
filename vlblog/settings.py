@@ -154,6 +154,7 @@ SUMMERNOTE_THEME = 'bs4'
 
 SUMMERNOTE_CONFIG = {
     'summernote': {
+        'class': 'creator__text-area',
         'placeholder': 'Основной текст статьи',
         'width': '100%',
         'minWidth': '150px',

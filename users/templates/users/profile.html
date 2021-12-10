@@ -1,93 +1,115 @@
 {% extends 'mainblog/base.html' %}
 
-{% block menu %}
-    <div class="outer_menu_container">
-        <div class="inner_menu_container">
-            {% if not user.is_authenticated %}
-                <div class="menu">
-                    <span><a class="menu_button" href="{% url 'home' %}">Главная</a></span>
-                    <span><a class="menu_button" href="{% url 'all_products' %}">Индекс борща</a></span>
-                    <span><a class="menu_button" href="{% url 'registration' %}">Регистрация&nbsp&nbsp</a></span>
-                    <span><a class="menu_button" href="{% url 'user' %}">Вход</a></span>
+{% load static %}
+
+{% block header %}
+    <header class="header">
+                <div class="fullscreen fullscreen_small">
+                    <div class="fullscreen__body">
+                        <div class="header__container container header__container_small">
+                            <div class="header__row">
+                                <div class="header__column">
+                                    <div class="header__item">
+                                        <div class="header__logo">
+                                            <a href="{% url 'home' %}" class="header__logo-item link logo-item">
+                                                <p class="logo-item__text">eco</p>
+                                                <div class="logo-item__picture">
+                                                    <img src={% static "mainblog/pictures/logo/izba.jpg" %} alt="logo-izba">
+                                                </div>
+                                                <p class="logo-item__text">borsch</p>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="header__column">
+                                    <div class="header__item">
+                                        <ul class="header__menu">
+                                            {% if not user.is_authenticated %}
+                                                <li><a href="{% url 'user_articles' 'prothean' %}" class="header__link link">blog</a></li>
+                                                <li><a href="{% url 'all_products' %}" class="header__link link">borsch index</a></li>
+                                                <li><a href="{% url 'registration' %}" class="header__link link">registration</a></li>
+                                                <li><a href="{% url 'user' %}" class="header__link link">log in</a></li>
+                                            {% else %}
+                                                {% if user.username == 'admin' or user.username == 'prothean' %}
+                                                    <li><a href="{% url 'user_articles' 'prothean' %}" class="header__link link">blog</a></li>
+                                                    <li><a href="{% url 'all_products' %}" class="header__link link">borsch index</a></li>
+                                                    <li><a href="{% url 'profile' %}" class="header__link link">profile</a></li>
+                                                    <li><a href="{% url 'article_add' %}" class="header__link link">new article</a></li>
+                                                    <li><a href="{% url 'exit' %}" class="header__link link">log out</a></li>
+                                                {% else %}
+                                                    <li><a href="{% url 'user_articles' 'prothean' %}" class="header__link link">blog</a></li>
+                                                    <li><a href="{% url 'all_products' %}" class="header__link link">borsch index</a></li>
+                                                    <li><a href="{% url 'profile' %}" class="header__link link">profile</a></li>
+                                                    <li><a href="{% url 'exit' %}" class="header__link link">log out (<b>{{ user.username }}</b>)</a></li>
+                                                {% endif %}
+                                            {% endif %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="header__row">
+                                <div class="header__big-text header__big-text_small">
+                                    <p>the most divinest borschy</p>
+                                    <p>by local economist-man...</p>
+                                </div>
+                            </div>
+                            <div class="header__blog">
+                            </div>
+                        </div>
+                    </div>
+                    <picture class="fullscreen__image">
+                        <img src={% static "mainblog/pictures/background/header_background.jpg" %} alt="background">
+                    </picture>
                 </div>
-            {% else %}
-                {% if user.username == 'admin' or user.username == 'prothean' %}
-                    <div class="menu">
-                        <span><a class="menu_button" href="{% url 'home' %}">Главная</a></span>
-                        <span><a class="menu_button" href="{% url 'all_products' %}">Индекс борща</a></span>
-                        <span><a id="profile_link" class="menu_button" href="{% url 'profile' %}">Профиль</a></span>
-                        <span><a class="menu_button" href="{% url 'article_add' %}">Написать статью</a></span>
-                        <span><a class="menu_button" href="{% url 'user_articles' user.username %}">Мои статьи</a></span>
-                        <span><a class="menu_button" href="{% url 'exit' %}">Выход</a>{# (<b>{{ user.username }}</b>) #}</span>
-                    </div>
-                {% else %}
-                    <div class="menu">
-                        <span><a class="menu_button" href="{% url 'home' %}">Главная</a></span>
-                        <span><a class="menu_button" href="{% url 'all_products' %}">Индекс борща</a></span>
-                        <span><a class="menu_button" href="{% url 'profile' %}">Профиль&nbsp&nbsp</a></span>
-                        <span><a class="menu_button" href="{% url 'exit' %}">Выход</a> (<b>{{ user.username }}</b>)</span>
-                    </div>
-                {% endif %}
-            {% endif %}
-        </div>
-    </div>
+</header>
 {% endblock %}
 
 {% block title %}
-    Профиль пользователя
+    Личная карточка пользователя
 {% endblock %}
 
-<body id="profile">
-    {% block content %}
-        <div class="user_profile">
-    <!--        <h3>Карточка пользователя</h3>-->
 
-            <form class="update_user_form" method="post" enctype="multipart/form-data">
-                <div class="user_card">
-                    <div class="user_photo_block">
-                        <img class="user_profile_photo" src="{{ user.profile.img.url }}">
-                        <a class="lnk_author" href="{% url 'user_articles' user.username %}" title="Перейти к статьям">{{ user.username }}</a>
-                        {% csrf_token %}
-                        <div class="helptext">
-                            <span>Загрузить фото:</span>
-                        </div>
+{% block content %}
+    <section class="content">
+        <h2>Карточка пользователя</h2>
+        <form class="profile" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="profile__item">
+                <div class="profile__image">
+                    <img src="{{ user.profile.img.url }}">
+                </div>
+                <a class="profile__link" href="{% url 'user_articles' user.username %}" title="Перейти к статьям">{{ user.username }}</a>
+                <p>Загрузить фото:</p>
+                <div class="profile__image-form">
+                    <div class="button profile__button profile__button_fake">
+                        <p>Выбрать файл</p>
                         {{ form.img|safe }}
-                        <input type="file" name="img" accept="image/*" id="id_img">
+                        <input class="button profile__button profile__button_hide" type="file" name="img" accept="image/*" id="id_img">
                     </div>
-
-                    <div class="user_name_attrs">
-                        <span>Имя:</span>
-                        {{ updateForm.first_name|safe }}
-                        <span>Фамилия:</span>
-                        {{ updateForm.last_name|safe }}
-                    </div>
-
-                    <div class="user_meta_attrs">
-                        <span>E-mail:</span>
-                        {{ updateForm.email|safe }}
-                        <span>Логин:</span>
-                        {{ updateForm.username|safe }}
-                    </div>
-                </div>
-                <div class="update_profile_info_button">
-                    <button type="submit">Обновить информацию</button>
-                </div>
-            </form>
-
-            <div class="update_user_password_block">
-                <div class="helptext">
-                    <span>При необходимости вы можете изменить свой пароль для входа в учётную запись. Для перехода к форме смены пароля, кликните по кнопке "Сменить пароль"</span>
-                </div>
-                <a class="readmore" href="{% url 'change_password' %}">Сменить пароль</a>
-
-                <br>
-                <br>
-                <br>
-                <div class="helptext">
-                    <span>Пользователь был зарегистрирован {{ user.date_joined|date:"d E Y" }}</span>
                 </div>
             </div>
-        </div>
+            <div class="profile__item">
+                <div class="profile__form">
+                    <p>Имя:</p>
+                    {{ updateForm.first_name|safe }}
+                    <p>Фамилия:</p>
+                    {{ updateForm.last_name|safe }}
+                    <p>Электронная почта:</p>
+                    {{ updateForm.email|safe }}
+                    <p>Логин:</p>
+                    {{ updateForm.username|safe }}
+                    <p>Дата регистрации:</p>
+                    <p class="profile__date registration__form-field" >{{ user.date_joined|date:"d E Y" }}</p>
+                    <button class="button profile__button" type="submit">Обновить информацию</button>
+                </div>
+            </div>
+            <div class="profile__item">
+                <p class="profile__helptext">При необходимости вы можете изменить свой пароль для входа в учётную запись.
+                    Для перехода к форме смены пароля, кликните по кнопке "Сменить пароль"</p>
+                <a class="button profile__button" href="{% url 'change_password' %}">Сменить пароль</a>
+            </div>
+        </form>
+    </section>
 
-    {% endblock %}
-</body>
+    <script src={% static 'mainblog/js/script_4.js' %} ></script>
+{% endblock %}

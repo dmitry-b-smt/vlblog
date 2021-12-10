@@ -1,50 +1,85 @@
 {% extends 'mainblog/base.html' %}
-
-{% block menu %}
-    <div class="outer_menu_container">
-        <div class="inner_menu_container">
-            {% if not user.is_authenticated %}
-                <div class="menu">
-                    <span><a class="menu_button" href="{% url 'home' %}">Главная</a></span>
-                    <span><a class="menu_button" href="{% url 'all_products' %}">Индекс борща</a></span>
-                    <span><a class="menu_button" href="{% url 'registration' %}">Регистрация</a></span>
-                    <span><a class="menu_button" href="{% url 'user' %}">Вход</a></span>
-                </div>
-            {% else %}
-                {% if user.username == 'admin' or user.username == 'prothean' %}
-                    <div class="menu">
-                        <span><a class="menu_button" href="{% url 'home' %}">Главная</a></span>
-                        <span><a class="menu_button" href="{% url 'all_products' %}">Индекс борща</a></span>
-                        <span><a id="profile_link" class="menu_button" href="{% url 'profile' %}">Профиль</a></span>
-                        <span><a class="menu_button" href="{% url 'article_add' %}">Написать статью</a></span>
-                        <span><a class="menu_button" href="{% url 'user_articles' user.username %}">Мои статьи</a></span>
-                        <span><a class="menu_button" href="{% url 'exit' %}">Выход</a>{# (<b>{{ user.username }}</b>) #}</span>
-                    </div>
-                {% else %}
-                    <div class="menu">
-                        <span><a class="menu_button" href="{% url 'home' %}">Главная</a></span>
-                        <span><a class="menu_button" href="{% url 'all_products' %}">Индекс борща</a></span>
-                        <span><a class="menu_button" href="{% url 'profile' %}">Профиль</a></span>
-                        <span><a class="menu_button" href="{% url 'exit' %}">Выход</a> (<b>{{ user.username }}</b>)</span>
-                    </div>
-                {% endif %}
-            {% endif %}
-        </div>
-    </div>
-{% endblock %}
+{% load static %}
 
 {% block title %}
     Восстановление пароля
 {% endblock %}
 
+{% block header %}
+    <header class="header">
+                <div class="fullscreen fullscreen_small">
+                    <div class="fullscreen__body">
+                        <div class="header__container container header__container_small">
+                            <div class="header__row">
+                                <div class="header__column">
+                                    <div class="header__item">
+                                        <div class="header__logo">
+                                            <a href="{% url 'home' %}" class="header__logo-item link logo-item">
+                                                <p class="logo-item__text">eco</p>
+                                                <div class="logo-item__picture">
+                                                    <img src={% static "mainblog/pictures/logo/izba.jpg" %} alt="logo-izba">
+                                                </div>
+                                                <p class="logo-item__text">borsch</p>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="header__column">
+                                    <div class="header__item">
+                                        <ul class="header__menu">
+                                            {% if not user.is_authenticated %}
+                                                <li><a href="{% url 'user_articles' 'prothean' %}" class="header__link link">blog</a></li>
+                                                <li><a href="{% url 'all_products' %}" class="header__link link">borsch index</a></li>
+                                                <li><a href="{% url 'registration' %}" class="header__link link">registration</a></li>
+                                                <li><a href="{% url 'user' %}" class="header__link link">log in</a></li>
+                                            {% else %}
+                                                {% if user.username == 'admin' or user.username == 'prothean' %}
+                                                    <li><a href="{% url 'user_articles' 'prothean' %}" class="header__link link">blog</a></li>
+                                                    <li><a href="{% url 'all_products' %}" class="header__link link">borsch index</a></li>
+                                                    <li><a href="{% url 'profile' %}" class="header__link link">profile</a></li>
+                                                    <li><a href="{% url 'article_add' %}" class="header__link link">new article</a></li>
+                                                    <li><a href="{% url 'exit' %}" class="header__link link">log out</a></li>
+                                                {% else %}
+                                                    <li><a href="{% url 'user_articles' 'prothean' %}" class="header__link link">blog</a></li>
+                                                    <li><a href="{% url 'all_products' %}" class="header__link link">borsch index</a></li>
+                                                    <li><a href="{% url 'profile' %}" class="header__link link">profile</a></li>
+                                                    <li><a href="{% url 'exit' %}" class="header__link link">log out (<b>{{ user.username }}</b>)</a></li>
+                                                {% endif %}
+                                            {% endif %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="header__row">
+                                <div class="header__big-text header__big-text_small">
+                                    <p>the most divinest borschy</p>
+                                    <p>by local economist-man...</p>
+                                </div>
+                            </div>
+                            <div class="header__blog">
+                            </div>
+                        </div>
+                    </div>
+                    <picture class="fullscreen__image">
+                        <img src={% static "mainblog/pictures/background/header_background.jpg" %} alt="background">
+                    </picture>
+                </div>
+</header>
+{% endblock %}
+
 {% block content %}
+    <section class="content">
+        <div class="recover">
+            <h2>Восстановление пароля</h2>
+            <div class="recover__form">
+                 <form method="post">
+                     {% csrf_token %}
+                     {{ form.as_p }}
+                     <button class="button registration__button" type="submit">Запросить новый пароль</button>
+                 </form>
+            </div>
+        </div>
+    </section>
 
-     <h3>Восстановление пароля</h3>
-
-     <form method="post">
-         {% csrf_token %}
-         {{ form.as_p }}
-         <button type="submit">Запросить новый пароль</button>
-     </form>
-
+<script src={% static 'mainblog/js/script_3.js' %} ></script>
 {% endblock %}

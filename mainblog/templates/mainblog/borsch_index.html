@@ -1,36 +1,66 @@
 {% extends 'mainblog/base.html' %}
+{% load static %}
 
-{% block menu %}
-    <div class="outer_menu_container">
-        <div class="inner_menu_container">
-            {% if not user.is_authenticated %}
-                <div class="menu">
-                    <span><a class="menu_button" href="{% url 'home' %}">Главная</a></span>
-                    <span><a id="profile_link" class="menu_button" href="{% url 'all_products' %}">Индекс борща</a></span>
-                    <span><a class="menu_button" href="{% url 'registration' %}">Регистрация</a></span>
-                    <span><a class="menu_button" href="{% url 'user' %}">Вход</a></span>
+{% block header %}
+    <header class="header">
+                <div class="fullscreen fullscreen_small">
+                    <div class="fullscreen__body">
+                        <div class="header__container container header__container_small">
+                            <div class="header__row">
+                                <div class="header__column">
+                                    <div class="header__item">
+                                        <div class="header__logo">
+                                            <a href="{% url 'home' %}" class="header__logo-item link logo-item">
+                                                <p class="logo-item__text">eco</p>
+                                                <div class="logo-item__picture">
+                                                    <img src={% static "mainblog/pictures/logo/izba.jpg" %} alt="logo-izba">
+                                                </div>
+                                                <p class="logo-item__text">borsch</p>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="header__column">
+                                    <div class="header__item">
+                                        <ul class="header__menu">
+                                            {% if not user.is_authenticated %}
+                                                <li><a href="{% url 'user_articles' 'prothean' %}" class="header__link link">blog</a></li>
+                                                <li><a href="{% url 'all_products' %}" class="header__link link">borsch index</a></li>
+                                                <li><a href="{% url 'registration' %}" class="header__link link">registration</a></li>
+                                                <li><a href="{% url 'user' %}" class="header__link link">log in</a></li>
+                                            {% else %}
+                                                {% if user.username == 'admin' or user.username == 'prothean' %}
+                                                    <li><a href="{% url 'user_articles' 'prothean' %}" class="header__link link">blog</a></li>
+                                                    <li><a href="{% url 'all_products' %}" class="header__link link">borsch index</a></li>
+                                                    <li><a href="{% url 'profile' %}" class="header__link link">profile</a></li>
+                                                    <li><a href="{% url 'article_add' %}" class="header__link link">new article</a></li>
+                                                    <li><a href="{% url 'exit' %}" class="header__link link">log out</a></li>
+                                                {% else %}
+                                                    <li><a href="{% url 'user_articles' 'prothean' %}" class="header__link link">blog</a></li>
+                                                    <li><a href="{% url 'all_products' %}" class="header__link link">borsch index</a></li>
+                                                    <li><a href="{% url 'profile' %}" class="header__link link">profile</a></li>
+                                                    <li><a href="{% url 'exit' %}" class="header__link link">log out (<b>{{ user.username }}</b>)</a></li>
+                                                {% endif %}
+                                            {% endif %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="header__row">
+                                <div class="header__big-text header__big-text_small">
+                                    <p>the most divinest borschy</p>
+                                    <p>by local economist-man...</p>
+                                </div>
+                            </div>
+                            <div class="header__blog">
+                            </div>
+                        </div>
+                    </div>
+                    <picture class="fullscreen__image">
+                        <img src={% static "mainblog/pictures/background/header_background.jpg" %} alt="background">
+                    </picture>
                 </div>
-            {% else %}
-                {% if user.username == 'admin' or user.username == 'prothean' %}
-                    <div class="menu">
-                        <span><a class="menu_button" href="{% url 'home' %}">Главная</a></span>
-                        <span><a id="profile_link" class="menu_button" href="{% url 'all_products' %}">Индекс борща</a></span>
-                        <span><a class="menu_button" href="{% url 'profile' %}">Профиль</a></span>
-                        <span><a class="menu_button" href="{% url 'article_add' %}">Написать статью</a></span>
-                        <span><a class="menu_button" href="{% url 'user_articles' user.username %}">Мои статьи</a></span>
-                        <span><a class="menu_button" href="{% url 'exit' %}">Выход</a>{# (<b>{{ user.username }}</b>) #}</span>
-                    </div>
-                {% else %}
-                    <div class="menu">
-                        <span><a id="profile_link" class="menu_button" href="{% url 'home' %}">Главная</a></span>
-                        <span><a class="menu_button" href="{% url 'all_products' %}">Индекс борща</a></span>
-                        <span><a class="menu_button" href="{% url 'profile' %}">Профиль</a></span>
-                        <span><a class="menu_button" href="{% url 'exit' %}">Выход</a> (<b>{{ user.username }}</b>)</span>
-                    </div>
-                {% endif %}
-            {% endif %}
-        </div>
-    </div>
+</header>
 {% endblock %}
 
 {% block title %}
@@ -38,98 +68,102 @@
 {% endblock %}
 
 {% block content %}
-    <div class="contacts">
-        <h3>Индекс борща</h3>
-        <div class="canva">
-            здесь возможен график
-        </div>
-        {% if not user.is_authenticated %}
-            {% if products.count > 0 %}
-                    <table class="borsch_products">
-                        <thead>
-                            <tr>
-                                <th>IMG</th>
-                                <th>Product_name</th>
-                                <th>Product_price  р/кг (р/уп)</th>
-                            </tr>
-                        </thead>
-                        {% for product in products %}
-                            <tbody>
-                                <tr>
-                                    <td>IMG</td>
-                                    <td>{{ product.name }}</td>
-                                    <td>{{ product.price }}</td>
-                                </tr>
-                            </tbody>
-                        {% endfor %}
-                    </table>
-                {% endif %}
-        {% else %}
-            {% if user.username == 'admin' or user.username == 'prothean' %}
-                <span><a class="readmore" href="{% url 'create_product' %}">Добавить продукт</a></span>
-                {% if products.count > 0 %}
-                    <div class="product_table">
-                        <div class="product_table_head">
-                            <span class="cell">IMG</span>
-                            <span class="cell">Product_name</span>
-                            <span class="cell">Product_price р/кг (р/уп)</span>
-                            <span class="cell_eddel">Edit</span>
-                            <span class="cell_eddel">Delete</span>
-                        </div>
-                    {% for product in products %}
-                        <div class="product_table_row">
-                            <span class="cell">IMG</span>
-                            <span class="cell">{{ product.name }}</span>
-                            <span class="cell">{{ product.price }}</span>
-                            <span class="cell_eddel"><a class="readmore" href="{% url 'product_update' product.id %}">Изменить данные</a></span>
-                            <span class="cell_eddel"><a class="readmore" href="{% url 'product_delete' product.id %}">Удалить продукт</a></span>
-                        </div>
-                    {% endfor %}
-                    </div>
 
-                    <table class="borsch_products">
-                        <thead>
-                            <tr>
-                                <th>IMG</th>
-                                <th>Product_name</th>
-                                <th>Product_price  р/кг (р/уп)</th>
-                                <th>Edit</th>
-                                <th>Delete</th>
-                            </tr>
-                        </thead>
-                        {% for product in products %}
-                            <tbody>
+
+    <section class="content">
+        <div class="contacts">
+            <h3>Индекс борща</h3>
+            <div class="canva">
+                здесь возможен график
+            </div>
+            {% if not user.is_authenticated %}
+                {% if products.count > 0 %}
+                        <table class="borsch_products">
+                            <thead>
                                 <tr>
-                                    <td>IMG</td>
-                                    <td>{{ product.name }}</td>
-                                    <td>{{ product.price }}</td>
-                                    <td><a class="readmore" href="{% url 'product_update' product.id %}">Изменить данные</a></td>
-                                    <td><a class="readmore" href="{% url 'product_delete' product.id %}">Удалить продукт</a></td>
+                                    <th>IMG</th>
+                                    <th>Product_name</th>
+                                    <th>Product_price  р/кг (р/уп)</th>
                                 </tr>
-                            </tbody>
-                        {% endfor %}
-                    </table>
-                {% endif %}
+                            </thead>
+                            {% for product in products %}
+                                <tbody>
+                                    <tr>
+                                        <td>IMG</td>
+                                        <td>{{ product.name }}</td>
+                                        <td>{{ product.price }}</td>
+                                    </tr>
+                                </tbody>
+                            {% endfor %}
+                        </table>
+                    {% endif %}
             {% else %}
-                <table class="borsch_products">
-                        <thead>
-                            <tr>
-                                <th>IMG</th>
-                                <th>Product_name</th>
-                                <th>Product_price  р/кг (р/уп)</th>
-                            </tr>
-                        </thead>
+                {% if user.username == 'admin' or user.username == 'prothean' %}
+                    <span><a class="readmore" href="{% url 'create_product' %}">Добавить продукт</a></span>
+                    {% if products.count > 0 %}
+                        <div class="product_table">
+                            <div class="product_table_head">
+                                <span class="cell">IMG</span>
+                                <span class="cell">Product_name</span>
+                                <span class="cell">Product_price р/кг (р/уп)</span>
+                                <span class="cell_eddel">Edit</span>
+                                <span class="cell_eddel">Delete</span>
+                            </div>
                         {% for product in products %}
-                            <tbody>
-                                <tr>
-                                    <td>IMG</td>
-                                    <td>{{ product.name }}</td>
-                                    <td>{{ product.price }}</td>
-                                </tr>
-                            </tbody>
+                            <div class="product_table_row">
+                                <span class="cell">IMG</span>
+                                <span class="cell">{{ product.name }}</span>
+                                <span class="cell">{{ product.price }}</span>
+                                <span class="cell_eddel"><a class="readmore" href="{% url 'product_update' product.id %}">Изменить данные</a></span>
+                                <span class="cell_eddel"><a class="readmore" href="{% url 'product_delete' product.id %}">Удалить продукт</a></span>
+                            </div>
                         {% endfor %}
-                    </table>
+                        </div>
+
+                        <table class="borsch_products">
+                            <thead>
+                                <tr>
+                                    <th>IMG</th>
+                                    <th>Product_name</th>
+                                    <th>Product_price  р/кг (р/уп)</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+                                </tr>
+                            </thead>
+                            {% for product in products %}
+                                <tbody>
+                                    <tr>
+                                        <td>IMG</td>
+                                        <td>{{ product.name }}</td>
+                                        <td>{{ product.price }}</td>
+                                        <td><a class="readmore" href="{% url 'product_update' product.id %}">Изменить данные</a></td>
+                                        <td><a class="readmore" href="{% url 'product_delete' product.id %}">Удалить продукт</a></td>
+                                    </tr>
+                                </tbody>
+                            {% endfor %}
+                        </table>
+                    {% endif %}
+                {% else %}
+                    <table class="borsch_products">
+                            <thead>
+                                <tr>
+                                    <th>IMG</th>
+                                    <th>Product_name</th>
+                                    <th>Product_price  р/кг (р/уп)</th>
+                                </tr>
+                            </thead>
+                            {% for product in products %}
+                                <tbody>
+                                    <tr>
+                                        <td>IMG</td>
+                                        <td>{{ product.name }}</td>
+                                        <td>{{ product.price }}</td>
+                                    </tr>
+                                </tbody>
+                            {% endfor %}
+                        </table>
+                {% endif %}
             {% endif %}
-        {% endif %}
-    </div>
+        </div>
+    </section>
 {% endblock %}

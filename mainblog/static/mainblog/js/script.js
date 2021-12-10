@@ -1,3 +1,4 @@
+// comment form
 const commentFormInput = document.querySelector('textarea');
 const commentFormInputPlaceholder = commentFormInput.placeholder;
 

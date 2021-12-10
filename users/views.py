@@ -125,6 +125,9 @@ def change_password(request):
             update_session_auth_hash(request, form.user)
             messages.success(request, f'Пароль пользователя {request.user} был успешно обновлён')
             return redirect('profile')
+        else:
+            messages.success(request, f'Старый пароль был введён неверно! Попробуйте заполнить форму смены пароля ещё раз.')
+            return redirect('change_password')
 
     else:
 

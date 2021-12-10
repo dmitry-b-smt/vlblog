@@ -15,13 +15,13 @@ class CreateArticleForm(forms.ModelForm):
     title = forms.CharField(
         label='Название статьи',
         required=True,
-        widget=forms.TextInput(attrs={'class': 'registration_form_field', 'placeholder': 'Название статьи'}),
+        widget=forms.TextInput(attrs={'class': 'creator__form-field', 'placeholder': 'Название статьи'}),
     )
 
     text = forms.CharField(
-        label='Название статьи',
+        label='Основной текст статьи',
         required=True,
-        widget=SummernoteWidget(attrs={'class': 'create_article_text_field', 'placeholder': 'Название статьи'}),
+        widget=SummernoteWidget(attrs={'class': 'creator__text-field', 'placeholder': 'Основной текст статьи'}),
     )
 
 
@@ -54,13 +54,13 @@ class UpdateArticleForm(forms.ModelForm):
     title = forms.CharField(
         label='Название статьи',
         required=True,
-        widget=forms.TextInput(attrs={'class': 'registration_form_field', 'placeholder': 'Название статьи'}),
+        widget=forms.TextInput(attrs={'class': 'creator__form-field', 'placeholder': 'Название статьи'}),
     )
 
     text = forms.CharField(
         label='Название статьи',
         required=True,
-        widget=SummernoteWidget(attrs={'class': 'create_article_text_field', 'placeholder': 'Название статьи'}),
+        widget=SummernoteWidget(attrs={'class': 'creator__text-field', 'placeholder': 'Название статьи'}),
     )
 
     class Meta:
