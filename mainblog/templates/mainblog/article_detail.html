@@ -168,6 +168,8 @@
                     </div>
                 {% endfor %}
             {% else %}
+            <p><a href="{% url 'user' %}" class="comments__link link">Войдите в систему</a> или <a href="{% url 'registration' %}" class="comments__link link">зарегистрируйтесь</a>, чтобы оставить свой комментарий</p>
+            <br>
                 {% for comment in comments_articles %}
                     <div class="comments__body">
                         <div>
