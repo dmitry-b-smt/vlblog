@@ -3,7 +3,8 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=0">
+    <meta name="format-detection" content="telephone=no">
 <!--    <meta http-equiv="refresh" content="10">-->
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="shortcut icon" href="{% static 'mainblog/pictures/favicon.ico' %}">
@@ -45,7 +46,7 @@
                                     <a href="#" class="footer__social-link"><img src={% static "mainblog/pictures/icons/social/telegram-icon.svg" %} alt="telegram"></a>
                                     <a href="#" class="footer__social-link"><img src={% static "mainblog/pictures/icons/social/twitter-icon.svg" %} alt="twitter"></a>
                                     <a href="#" class="footer__social-link"><img src={% static "mainblog/pictures/icons/social/instagram-icon.svg" %} alt="instagram"></a>
-                                    <a href="#" class="footer__social-link"><img src={% static "mainblog/pictures/icons/social/vk-icon.svg" %} alt="vk"></a>
+                                    <a href="https://vk.com/share.php?url={{ request.get_full_path }}" class="footer__social-link" target="_blank"><img src={% static "mainblog/pictures/icons/social/vk-icon.svg" %} alt="vk"></a>
                                     <a href="#" class="footer__social-link"><img src={% static "mainblog/pictures/icons/social/facebook-icon.svg" %} alt="facebook"></a>
                                 </div>
                             </div>

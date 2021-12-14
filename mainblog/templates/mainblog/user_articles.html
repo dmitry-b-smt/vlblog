@@ -107,24 +107,44 @@
                     </div>
                 {% endfor %}
             </div>
-            <div class="nav_pages">
-                <div class="pages">
+            <div class="articles__pagination pagination">
+                <div class="pagination pagination-container">
                     {% if is_paginated %}
                         {% if page_obj.has_previous %}
-                            <a class="pagination" href="{% url 'user_articles' 'prothean' %}">На первую</a>
-                            <a class="pagination" href="?page={{ page_obj.previous_page_number }}">Предыдущая</a>
+                            <a class="pagination__button button" href="{% url 'user_articles' 'prothean' %}">На первую</a>
+                            <a class="pagination__button button" href="?page={{ page_obj.previous_page_number }}">Предыдущая</a>
                         {% endif %}
                     {% for num in page_obj.paginator.page_range %}
-                    {% if num == page_obj.number %}
-                        <button class="paginated">{{ num }}</button>
-                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-                        <a class="pagination" href="?page={{ num }}">{{ num }}</a>
+                        {% if num == page_obj.number %}
+                            <button class="pagination__button button pagination__button_paginated">{{ num }}</button>
+                        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                            <a class="pagination__button button" href="?page={{ num }}">{{ num }}</a>
                         {% endif %}
                     {% endfor %}
 
                     {% if page_obj.has_next %}  <!--проверяем, есть ли последующие страницы-->
-                        <a class="pagination" href="?page={{ page_obj.next_page_number }}">Следующая</a>
-                        <a class="pagination" href="?page={{ page_obj.paginator.num_pages }}">Последняя</a>
+                        <a class="pagination__button button" href="?page={{ page_obj.next_page_number }}">Следующая</a>
+                        <a class="pagination__button button" href="?page={{ page_obj.paginator.num_pages }}">Последняя</a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+                <div class="pagination pagination-container-small">
+                    {% if is_paginated %}
+                        {% if page_obj.has_previous %}
+                            <a class="pagination__button button" href="{% url 'user_articles' 'prothean' %}" title="На первую"><<</a>
+                            <a class="pagination__button button" href="?page={{ page_obj.previous_page_number }}" title="Предыдущая"><</a>
+                        {% endif %}
+                    {% for num in page_obj.paginator.page_range %}
+                        {% if num == page_obj.number %}
+                            <button class="pagination__button button pagination__button_paginated">{{ num }}</button>
+                        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                            <a class="pagination__button button" href="?page={{ num }}">{{ num }}</a>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if page_obj.has_next %}  <!--проверяем, есть ли последующие страницы-->
+                        <a class="pagination__button button" href="?page={{ page_obj.next_page_number }}" title="Следующая">></a>
+                        <a class="pagination__button button" href="?page={{ page_obj.paginator.num_pages }}" title="Последняя">>></a>
                         {% endif %}
                     {% endif %}
                 </div>

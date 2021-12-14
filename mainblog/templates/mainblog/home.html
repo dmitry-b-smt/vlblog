@@ -57,7 +57,7 @@
                                 </div>
                             </div>
                             <div class="blog__arrow">
-                                <a href="#articles"><img src={% static "mainblog/pictures/icons/white-down-arrow.svg" %} alt="down-arrow" title="Go to my recent posts"></a>
+                                <a href="#"><img class="blog__arrow-link" src={% static "mainblog/pictures/icons/white-down-arrow.svg" %} alt="down-arrow" title="Go to my recent posts"></a>
                             </div>
                         </div>
                     </div>
@@ -107,7 +107,7 @@
                         {% for product in borsch %}
                         {% load mathfilters %}
                         <div>
-                            {{ product.name }} ({{ product.grammovka }}гр.): {{ product.price|mul:product.grammovka|div:product.kilo|floatformat:2 }}р.
+                            <a href="https://www.google.ru/search?q=сколько+стоит+{{ product.name }}" class="sidebar__borsch-back-text-link" target="_blank">{{ product.name }} ({{ product.grammovka }}гр.): {{ product.price|mul:product.grammovka|div:product.kilo|floatformat:2 }}р.</a>
                         </div>
                         {% endfor %}
                     </div>
@@ -149,7 +149,7 @@
             <a href="#" class="sidebar__link"><img src={% static "mainblog/pictures/icons/social/telegram-icon.svg" %} alt="telegram"></a>
             <a href="#" class="sidebar__link"><img src={% static "mainblog/pictures/icons/social/twitter-icon.svg" %} alt="twitter"></a>
             <a href="#" class="sidebar__link"><img src={% static "mainblog/pictures/icons/social/instagram-icon.svg" %} alt="instagram"></a>
-            <a href="#" class="sidebar__link"><img src={% static "mainblog/pictures/icons/social/vk-icon.svg" %} alt="vk"></a>
+            <a href="https://vk.com/share.php?url={{ request.get_full_path }}" class="sidebar__link" target="_blank"><img src={% static "mainblog/pictures/icons/social/vk-icon.svg" %} alt="vk"></a>
             <a href="#" class="sidebar__link"><img src={% static "mainblog/pictures/icons/social/facebook-icon.svg" %} alt="facebook"></a>
         </div>
     </div>
@@ -253,6 +253,8 @@
         </div>
     </section>
 </section>
+
+<script src={% static 'mainblog/js/scroll.js' %}></script>
 {% endblock %}
 
 
