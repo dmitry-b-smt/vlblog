@@ -66,7 +66,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'vlblog.wsgi.application'
 
-
+# Change db on MySQL later
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
