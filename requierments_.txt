@@ -1,0 +1,10 @@
+django==3.2
+django-ckeditor
+easy-thumbnails
+django-filer
+django-summernote
+django-mathfilters
+django-ckeditor-filebrowser-filer
+gunicorn
+whitenoise
+dj-database-url

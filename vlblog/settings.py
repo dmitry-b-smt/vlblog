@@ -1,5 +1,6 @@
 from pathlib import Path
 import os
+import dj_database_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -13,7 +14,7 @@ SECRET_KEY = 'django-insecure-d-+^z%ikxfk0_ybf$u7hs%@97#%k2ka31gotcgvj^3wr*u(t=s
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -184,3 +185,6 @@ SUMMERNOTE_CONFIG = {
     'attachment_require_authentication': True,
     }
 }
+
+db_from_env = dj_database_url.config()
+DATABASES['default'].update(db_from_env)
