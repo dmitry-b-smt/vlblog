@@ -373,22 +373,24 @@ h4 {
     transform: scale3d(1.2, 1.2, 1);
 }
 
-
-.main {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -webkit-box-flex: 1;
-    -ms-flex: 1 1 auto;
-    flex: 1 1 auto;
-    display: -ms-grid;
-    display: grid;
-    -ms-grid-rows: 1fr;
-    -ms-grid-columns: 1fr minmax(auto, 250px) minmax(auto, 900px) minmax(auto, 250px) 1fr;
-    grid-template: auto/1fr minmax(auto, 250px) minmax(auto, 900px) minmax(auto, 250px) 1fr;
-    grid-auto-flow: column;
+@media (min-width: 1201px) {
+    .main {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -webkit-box-flex: 1;
+        -ms-flex: 1 1 auto;
+        flex: 1 1 auto;
+        display: -ms-grid;
+        display: grid;
+        -ms-grid-rows: 1fr;
+        -ms-grid-columns: 1fr minmax(auto, 250px) minmax(auto, 900px) minmax(auto, 250px) 1fr;
+        grid-template: auto/1fr minmax(auto, 350px) minmax(500px, 900px) minmax(auto, 350px) 1fr;
+        grid-auto-flow: column;
+    }
 }
+
 
 .sidebar {
     height: fit-content;
@@ -400,11 +402,14 @@ h4 {
     text-align: center;
     /*text-shadow: 0px 0px 5px #ffffff;*/
 }
-.sidebar_left {
+@media (min-width: 1201px) {
+    .sidebar_left {
     -ms-grid-column: 2;
     -ms-grid-column-span: 1;
     grid-column: 2 / 3;
+    }
 }
+
 .sidebar-left-container {
     display: flex;
     flex-direction: column;
@@ -613,7 +618,7 @@ h4 {
 .sidebar__follow {
 }
 .sidebar__follow img {
-    width: 62px;
+    width: 54px;
 }
 .sidebar__social {
     display: flex;
@@ -631,11 +636,14 @@ h4 {
 .sidebar__card {
 }
 
-.sidebar_right {
+@media (min-width: 1201px) {
+    .sidebar_right {
     -ms-grid-column: 4;
     -ms-gird-column-span: 1;
     grid-column: 4 / 5;
 }
+}
+
 .sidebar__header_right {
     /*background-color: #00a8e6;*/
     background-color: #444444;
@@ -815,12 +823,17 @@ h4 {
     -ms-grid-columns: (minmax(200px, 1fr))[auto-fit];
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
+
 .articles__item {
     display: flex;
     flex-direction: column;
     margin: 0px 0px 30px 0px;
     padding: 0px 0px 10px 0px;
     border-bottom: 1px solid #eaeaea;
+}
+@media (max-width: 1312px) {
+    articles__item:last-child {
+    }
 }
 .articles__last-article .articles__item:last-child {
     margin: 0;
